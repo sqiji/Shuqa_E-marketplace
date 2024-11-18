@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate">
+	<head>
+		<meta charset="UTF-8">
+		<title>Login</title>
+	</head>
+	<body>
+		<h1>Login</h1>
+		<div layout:fragment="content">
+			 
+		<div style="width:75%">
+			<form th:action="@{doLogin}" th:object="${loginModel}" method="post" class="row g-3 needs-validation" novalidate>
+				<div class="col-md-6">
+					<label for="username" class="form-label">Username</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('username'))} ? is-invalid" id="username" th:field="*{username}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="password" class="form-label">Password</label>
+					<div class="input-group has-validation">					
+						<input type="password" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid" id="password" th:field="*{password}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>							
+					</div>
+				</div>
+				<h3 th:text="${loginFailed} ? 'Incorrect Username or Password'" style="color:red"></h3>
+				<div class="col-12">
+				    <button type="submit" class="btn btn-primary">Submit</button>
+			    </div>
+			</form>
+		</div>
+	</div>
+	</body>
+</html>

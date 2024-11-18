@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate" >
+
+<!-- layout:decorate="layouts/defaultTemplate" -->
+<head>
+	<meta charset="UTF-8" />
+	<title>Register</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content=""/>
+</head>
+<body style="margin:5%; background-color: lightgray;"> 
+	<div layout:fragment="content" style="background-color:lightpink; padding: 5%; font-weight: bold; width:50%;">
+		<div style="">
+			<form th:action="@{doRegister}" th:object="${userModel}" method="post" class="row g-3 needs-validation" novalidate>
+				<div class="col-md-6">
+					<label for="firstName" class="form-label">First Name</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('firstName'))} ? is-invalid" id="firstName" th:field="*{firstName}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="lastName" class="form-label">Last Name</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('lastName'))} ? is-invalid" id="lastName" th:field="*{lastName}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="email" class="form-label">Email Address</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid" id="email" th:field="*{email}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="phone" class="form-label">Phone</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid" id="phone" th:field="*{phone}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="username" class="form-label">Username</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('username'))} ? is-invalid" id="username" th:field="*{username}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="password" class="form-label">Password</label>
+					<div class="input-group has-validation">					
+						<input type="password" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('password'))} ? is-invalid" id="password" th:field="*{password}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>							
+					</div>
+				</div>
+				<div class="col-12">
+				    <button type="submit" class="btn btn-primary">Register</button>
+			    </div>
+			</form>
+		</div>
+	</div>
+<body/>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate" >
+
+<!-- layout:decorate="layouts/defaultTemplate" -->
+<head>
+	<meta charset="UTF-8" />
+	<title>New Car</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content=""/>
+</head>
+<body> 
+	<div layout:fragment="content">
+		<div class="container-sm">
+			<form th:action="@{newProduct}" th:object="${productModel}" method="post" class="row g-3 needs-validation" novalidate>
+				<div class="col-md-6">
+					<label for="make" class="form-label">Make</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('make'))} ? is-invalid" id="make" th:field="*{make}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('make')}" th:errors="*{make}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="year" class="form-label">Year</label>
+					<div class="input-group has-validation">					
+						<input type="number" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="price" class="form-label">Price</label>
+					<div class="input-group has-validation">					
+						<input type="number" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('price'))} ? is-invalid" id="price" th:field="*{price}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>							
+					</div>
+				</div>
+				<div class="col-md-6">
+					<label for="model" class="form-label">Model</label>
+					<div class="input-group has-validation">					
+						<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('model'))} ? is-invalid" id="model" th:field="*{model}" required>
+						<div class="invalid-feedback" th:if="${#fields.hasErrors('model')}" th:errors="*{model}"></div>							
+					</div>
+				</div>
+				<div class="col-12">
+				    <button type="submit" class="btn btn-primary">Submit</button>
+			    </div>
+			</form>
+		</div>
+	</div>
+<body/>
+</html>
