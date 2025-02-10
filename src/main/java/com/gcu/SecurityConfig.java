@@ -21,7 +21,7 @@ public class SecurityConfig
 	{
 		http.csrf(csrf -> csrf.disable())
 		.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/", "/register", "/doRegister", "/images/**", "/products",  "/forgetpassword", "/products/displayItem/**").permitAll()
+				.requestMatchers("/", "/register", "/doRegister", "/images/**", "/products",  "/forgot-password", "/reset-password", "/reset-password?token=", "/message" ,"/products/displayItem/**").permitAll()
 				.anyRequest().authenticated())
 		.formLogin(form -> form.loginPage("/login")
 				.usernameParameter("username").passwordParameter("password").permitAll()

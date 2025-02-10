@@ -78,15 +78,6 @@ public class ProductDataService implements DataAccessInterface<ProductEntity> {
 
 	@Override
 	public boolean update(ProductEntity product) {
-//	    String sql = "UPDATE products SET make = ?, model = ?, year = ?, price = ? WHERE id = " + product.getId();
-//	    try {
-//	    	jdbcTemplateObject.update(sql,product.getMake(),product.getModel(),product.getYear(),product.getPrice());
-//	    } catch (Exception e) {
-//	        e.printStackTrace();
-//	        return false;
-//	    }
-//        return true;
-		
 		try {
 			productsRepository.save(product);
 		} catch (Exception e) {

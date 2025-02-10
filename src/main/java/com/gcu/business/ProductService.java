@@ -25,7 +25,7 @@ public class ProductService implements ProductServiceInterface{
 		List<ProductModel> productDomain = new ArrayList<ProductModel>();
 		for(var entity : productEntities) {
 			productDomain.add(new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(), 
-					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImage(), entity.getCreatedBy(), 
+					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getCreatedBy(), 
 					entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId()));
 		}
 		
@@ -35,18 +35,8 @@ public class ProductService implements ProductServiceInterface{
 	@Override
 	public boolean createProduct(ProductModel product) {
 		return service.create(new ProductEntity(new ObjectId(), product.getName(), product.getDescription(), 
-				product.getYear(),(float) product.getPrice(), product.getImage(), product.getCreatedBy()
+				product.getYear(),(float) product.getPrice(), product.getCreatedBy()
 				,product.getPhone(), product.getEmail(), product.getOtherContacts())); 
-	}
-
-	@Override
-	public void updateProduct(ProductModel productModel) {
-        ProductEntity entityToUpdate = new ProductEntity(productModel.getId(), productModel.getName(),
-                productModel.getDescription(), productModel.getYear(), (float) productModel.getPrice(), 
-                productModel.getImage(), productModel.getCreatedBy(), productModel.getPhone(),
-                productModel.getEmail(), productModel.getOtherContacts());
-        
-        service.update(entityToUpdate);		
 	}
 
 	@Override
@@ -56,20 +46,22 @@ public class ProductService implements ProductServiceInterface{
 
         if (entity != null) {
             return new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(),
-                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImage(), entity.getCreatedBy(), 
+                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getCreatedBy(), 
                     entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId());
         } else {
             return null;
         }
 	}
-	
+
+	@Override
+	public void updateProduct(ProductModel productModel) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
+	}
+
 	@Override
 	public boolean delete(ObjectId id) {
-		ProductEntity entity = new ProductEntity();
-		
-		entity.setId(id);
-		return service.delete(entity);
-	}
-	
-		
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'delete'");
+	}	
 }

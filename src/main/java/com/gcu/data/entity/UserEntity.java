@@ -16,6 +16,9 @@ public class UserEntity {
 	private String lastName;
 	private String phone;
 	
+	private String resetPasswordToken;
+	
+	
 	@Indexed(unique=true) private String password;
 	
 	@Indexed(unique=true) private String username;
@@ -31,7 +34,7 @@ public class UserEntity {
 	 * @param password		user password
 	 * @param username		user username
 	 */
-	public UserEntity(String firstName, String lastName, String phone, String email, String password,
+	public UserEntity(String firstName, String lastName, String phone, String email, String password, 
 			String username) {
 		super();
 		this.firstName = firstName;
@@ -176,5 +179,25 @@ public class UserEntity {
 	public void setUsername(String username) {
 		this.username = username;
 	} 
+
+
+	/**
+	 * Get method for resetToken
+	 * @return   resetToken
+	 */
+	public String getResetPasswordToken(){
+		return resetPasswordToken;
+	}
+
+	/**
+	 * Setter for the resetToken
+	 * @param resetToken resetToken to set
+	 */
+	public void setResetPasswordToken(String resetPasswordToken){
+		this.resetPasswordToken = resetPasswordToken;
+	}
+
+
+	
 	
 }

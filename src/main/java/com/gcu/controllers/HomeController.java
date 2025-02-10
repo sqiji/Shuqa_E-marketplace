@@ -25,11 +25,11 @@ public class HomeController {
 		return "index";
 	}
 	
-	
-	@GetMapping("/forgetpassword")
+	/*	@GetMapping("/forgetPassword")
 	public String forgetPassword(Model model) {
 model.addAttribute("title", "");
 		
-		return "forgetpassword";
+		return "forget-password";
 	}
+		*/
 }

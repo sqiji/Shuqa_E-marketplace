@@ -41,21 +41,23 @@
 						</div>
 					</div>
 					
+					<!--
 					<div class="col-md-6" style="align:center">
-						<!--
+						--
 						<label for="image" class="form-label">Image</label> 
 							<div class="input-group has-validation">					
 								<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('image'))} ? is-invalid" id="image" th:field="*{image}" required>
 								<div class="invalid-feedback" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>	
-							</div> -->
+							</div> --
 							 
 							<div class="mb-3">
 							  <label for="image" class="form-label">Image</label>
 							  <input class="form-control" type="file" id="image" multiple th:classappend="${not #lists.isEmpty(#fields.errors('image'))} ? is-invalid" th:field="*{image}" required>
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('image')}" th:errors="*{image}"></div>	
 					</div>
+					-->
 											
-					</div>
+					
 					<div class="col-md-6">
 						<label for="phone" class="form-label">Phone</label>
 						<div class="input-group has-validation">					
@@ -84,5 +86,5 @@
 				</form>
 			</div>
 		</div>
-	<body/>
+	</body>
 </html>

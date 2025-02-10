@@ -1,10 +1,7 @@
 package com.gcu.model;
 
-import org.bson.types.ObjectId;
-
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -23,12 +20,13 @@ public class UserModel {
 	private String lastName;
 	
 	@NotEmpty(message="Email is required")
-	@Size(min=1, message="Email is required")
-	@Email(message="Must be a vaild email address")
+	@Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", 
+			message = "Email must be in a valid format")
 	private String email;
 	
 	@NotEmpty(message="A phone number is required")
-	@Size(min=10, max=10, message="Must be exactly 10 characters")
+	@Pattern(regexp = "^\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$", 
+			message = "Phone number must be in a valid format (e.g., 8005555555, 800 555 5555, or 800-555-5555)")
 	private String phone;
 	
 	@NotEmpty(message="Username is required")
@@ -36,14 +34,12 @@ public class UserModel {
 	private String username;
 	
 	@NotEmpty(message="Password is required")
-	@Size(min=8, max=70, message="Password must be at least 8 characters")
+	@Size(min=8, message="Password must be at least 12 characters")
+	@Pattern(regexp = "^(?=.*[A-Z])(?=.*[a-z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$", 
+			message = "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character.")
 	private String password;
 
-	
-	
-	
-	
-	
+
 	/**
 	 * Non Default constructor
 	 * @param firstName user first name
@@ -187,6 +183,8 @@ public class UserModel {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	
 	
 	
 }

@@ -23,13 +23,7 @@ public interface ProductServiceInterface {
 	 * @return True - successful addition, False - unsuccessful addition
 	 */
 	public boolean createProduct(ProductModel product);
-	
-	/**
-     * Updates an existing product.
-     * 
-     * @param productModel The product model containing updated information.
-     */
-    void updateProduct(ProductModel productModel);
+
 
     /**
      * Retrieves a product by its ID.
@@ -38,6 +32,13 @@ public interface ProductServiceInterface {
      * @return The product with the specified ID, or null if not found.
      */
     ProductModel getProductById(ObjectId productId);
+
+    /**
+     * Updates an existing product.
+     * 
+     * @param productModel The product model containing updated information.
+     */
+    void updateProduct(ProductModel productModel);
     
     /**
      * Deletes a product by id

@@ -16,7 +16,7 @@ public class ProductEntity {
 	private String description;
 	private int year;
 	private float price;
-	private String image;
+	//private String image;
 	private String createdBy;
 	private String phone;
 	private String email;
@@ -31,14 +31,14 @@ public class ProductEntity {
 	 * @param price Price of the item
 	 */
 	public ProductEntity(ObjectId id, String name, String description, int year, float price, 
-			String image, String createdBy, String phone, String email, String otherContacts) {
+			String createdBy, String phone, String email, String otherContacts) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.year = year;
 		this.price = price;
-		this.image = image;
+		//this.image = image;
 		this.createdBy = createdBy;
 		this.phone = phone;
 		this.email = email;
@@ -131,19 +131,19 @@ public class ProductEntity {
 		this.price = price;
 	}
 	
-	/**
-	 * @return the image
-	 */
-	public String getImage() {
-		return image;
-	}
+	// /**
+	//  * @return the image
+	//  */
+	// public String getImage() {
+	// 	return image;
+	// }
 
-	/**
-	 * @param image the image to set
-	 */
-	public void setImage(String image) {
-		this.image = image;
-	}
+	// /**
+	//  * @param image the image to set
+	//  */
+	// public void setImage(String image) {
+	// 	this.image = image;
+	// }
 
 	public String getCreatedBy() {
 		return this.createdBy;

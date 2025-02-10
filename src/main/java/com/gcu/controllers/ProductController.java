@@ -90,20 +90,6 @@ public class ProductController {
 	}
 	
 	
-	/*
-	@GetMapping(path="/byUser")
-	public String displayProductsByUser(Model model) {
-		List<ProductModel> products = productService.getProducts(SecurityContextHolder.getContext().getAuthentication().getName());
-    	model.addAttribute("title", "Our cars");
-    	model.addAttribute("products", products);
-    	model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getName());
-    	
-    	return "products";
-	}
-	*/
-	
-	
-	
 	/**
 	 * Opens the newProduct html file
 	 * @param model Model for the webpage
@@ -131,11 +117,10 @@ public class ProductController {
 	public String createProduct(@Valid ProductModel productModel, BindingResult bindingResult, Model model) {
 		if(bindingResult.hasErrors())
     	{
-    		model.addAttribute("title", "Post Item");
+    		model.addAttribute("title", "Post an Item");
     		return "createProduct";
     	}
 		
-
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		productModel.setCreatedBy(auth.getName());
 		
@@ -147,74 +132,5 @@ public class ProductController {
 		
 		return "redirect:/myproducts";
 	}
-	
-	/**
-	 * Loads edit product page
-	 * @param model Model for webpage
-	 * @param productId ID of product to edit
-	 * @return Redirects to products page
-	 */
-	@GetMapping(path="products/editProduct/{productId}")
-	public String displayEdit(@PathVariable ObjectId productId, Model model) {
-	    ProductModel productModel = productService.getProductById(productId);
 
-	    // Check if the product exists
-	    if (productModel == null) {
-	        return "redirect:/myproducts";
-	    }
-	    
-	    String username = SecurityContextHolder.getContext().getAuthentication().getName();
-	    
-	    // Check to see if user made this
-	    if(!productModel.getCreatedBy().equals(username)) {
-	    	return "redirect:/products";
-	    }
-	    
-	    model.addAttribute("productModel", productModel);
-	    model.addAttribute("title", "Edit Product");
-	    model.addAttribute("user", username);
-
-	    return "editProduct";
-	}
-	
-	/**
-	 * Edits the given product
-	 * @param productId ProductID from the url
-	 * @param productModel ProductModel with new information
-	 * @param bindingResult Binding Result used for data validation
-	 * @param model Model for website generation
-	 * @return Redirect to products if the update was successful
-	 */
-	@PostMapping(path="products/editProduct/{productId}")
-	public String updateProduct(@PathVariable ObjectId productId, @Valid ProductModel productModel, BindingResult bindingResult, Model model) {
-	    if(bindingResult.hasErrors()) {
-	        model.addAttribute("title", "Edit Product");
-	        return "editProduct";
-	    }
-	    
-	    productModel.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-
-	    productModel.setId(productId);
-	    productService.updateProduct(productModel);
-
-	    return "redirect:/myproducts";
-	}
-	
-	/**
-	 * Deletes the product on post request
-	 * @param model Model for website generation
-	 * @param id ProductID from the url
-	 * @return Redirect back to products
-	 */
-	@PostMapping(path="products/deleteProduct/{id}")
-	public String deleteProduct( Model model, @PathVariable("id") ObjectId id) {
-		productService.delete(id);
-		
-		List<ProductModel> products = productService.getProducts();
-		
-		model.addAttribute("products", products);
-		return "redirect:/myproducts";
-	}
-	
-	
 }

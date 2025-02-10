@@ -5,10 +5,15 @@ import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import com.gcu.data.entity.UserEntity;
 import com.gcu.data.repository.UserRepository;
+import com.gcu.model.UserModel;
 
 /**
  * Data Service for user data
@@ -19,6 +24,10 @@ public class UserDataService implements DataAccessInterface<UserEntity> {
 	//Declare variables
 	@Autowired private UserRepository registerRepository;
 	
+
+	public UserEntity findByUsername(String username) {
+        return registerRepository.findByUsername(username);  // Delegates to repository
+    }
 	
 	/**
 	 * Constructor for UserDataService
@@ -90,6 +99,9 @@ public class UserDataService implements DataAccessInterface<UserEntity> {
 		}
 	}
 
+	
+
+
 	@Override
 	public UserEntity findById(ObjectId id) {
 		// TODO Auto-generated method stub
@@ -101,4 +113,28 @@ public class UserDataService implements DataAccessInterface<UserEntity> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public void updateResetPasswordToken(String token, String email) throws UserNotFoundException{
+		UserEntity user = registerRepository.findByEmail(email);
+
+		
+		if(user != null){
+			user.setResetPasswordToken(token); 
+			registerRepository.save(user);
+		} else {
+			throw new UserNotFoundException("Invalid email address, please enter a valid email");
+		}
+	}
+
+	public UserEntity get(String resetPasswordToken){
+		return registerRepository.findByResetPasswordToken(resetPasswordToken);
+	}
+
+	public void updatePassword(UserEntity user, String newPassword){
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String emcodedPassword = passwordEncoder.encode(newPassword);
+		user.setPassword(emcodedPassword);
+		user.setResetPasswordToken(null);
+		registerRepository.save(user);	
+	} 
 }

@@ -28,8 +28,10 @@
 					<p style="text-align:center"> No orders available </p>
 				</div>
 				<div class="card" style="width: 18rem" th:each="product : ${products}" th:id="${product.id}" >
+					<!--
 					<img th:if="${product.image != ''}" th:src="${product.image}" class="card-img-top" alt="product" style="width: 100%; height: 100%; object-fit: cover">
 					<img th:if="${product.image == ''}" th:src="@{/images/placeholder.png}" class="card-img-top" alt="product" style="width: 100%; height: 100%; object-fit: cover">
+					-->
 					<div class="card-body">
 						<h4 class="card-title" th:text="${product.name}">Name</h4> 
 						<h5 class="card-title" th:text="${product.description}">Description</h5>

@@ -7,17 +7,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.gcu.business.LoginService;	
 import com.gcu.model.LoginModel;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 
 /**
  * Controller for the Login page
  */
 @Controller
+@RequestMapping("/")
 public class LoginController {
-	
+
 	@Autowired
 	private LoginService loginService;
 	
@@ -47,16 +52,18 @@ public class LoginController {
 	@PostMapping("/doLogin")
     public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
     {
+
+		boolean success = loginService.login(loginModel);
+
     	if(bindingResult.hasErrors())
     	{
     		model.addAttribute("title", "Login Form");	
     		return "login"; 
     	}
     	
-    	boolean success = loginService.login(loginModel);
-    	
     	if(!success) {
-    		
+
+			
     		model.addAttribute("title", "Login Form");
     		model.addAttribute("loginFailed", true);
     		return "login";	

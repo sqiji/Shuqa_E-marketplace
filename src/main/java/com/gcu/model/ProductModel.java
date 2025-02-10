@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Null;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -19,11 +20,11 @@ public class ProductModel {
 	private ObjectId id;
 	
 	@NotEmpty(message="name is required")
-	//@Size(min = 1, max = 50, message="name must be between 1 and 50 characters")
+	@Size(min = 5, max = 50, message="name must be between 5 and 50 characters")
 	private String name;
 	
 	@NotEmpty(message="Description is required")
-	@Size(min = 10, max = 500, message="description must be between 1 and 50 characters")
+	@Size(min = 10, max = 500, message="description must be between 10 and 50 characters")
 	private String description;
 	
 	private int year;
@@ -32,21 +33,68 @@ public class ProductModel {
 	@Min(value = 1, message="The price cannot be less than $1")
 	private double price;
 	
-	@NotEmpty(message="Image is required")
-	private String image;
+	// @NotEmpty(message="Image is required")
+	// private String image;
 	
 	private String createdBy;
 	
 	@NotEmpty(message="Phone number is required")
-	@Size(min = 10, max = 10, message="Please enter the correct phone number")
+	@Pattern(regexp = "^\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$", 
+			message = "Phone number must be in a valid format (e.g., 8005555555, 800 555 5555, or 800-555-5555)")
 	private String phone;
 	
 	@NotEmpty(message="Email is required")
-	@Size(min=1, message="Email is required")
-	@Email(message="Must be a vaild email address")
+	@Pattern(regexp = "^[a-zA-Z0-9_+&*-]+(?:\\.[a-zA-Z0-9_+&*-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,7}$", 
+			message = "Email must be in a valid format")
 	private String email;
 	
 	private String otherContacts;
+
+	/**
+	 * Simple constructor for the Car product
+	 * @param id ID of the product
+	 * @param name name of the car
+	 * @param year Year of the car
+	 * @param description description of the car
+	 * @param price Price the car is being sold for
+	 * @param createBy the user that create or post the item
+	 * @param phone user's phone
+	 * @param email user's email
+	 * @param otherContacts user's onter contacts 
+	 */	
+	public ProductModel(String name, int year, String description,
+			double price, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
+		super();
+		this.name = name;
+		this.year = year;
+		this.description = description;
+		this.price = price;
+		//this.image = image;
+		this.createdBy = createdBy;
+		this.phone = phone;
+		this.email = email;
+		this.otherContacts = otherContacts;
+		this.id = id;
+	}
+
+	/**
+	 * Default constructor for the Product description
+	 */
+	
+	
+	
+	public ProductModel() {
+		super();
+		/*
+		this.name = "";
+		this.year = 0;
+		this.description = "";
+		this.price = 0.0;
+		this.image = "";
+		this.createdBy = "";
+		this.id = new ObjectId();
+		*/
+	}
 	
 	/**
 	 * Simple getter for the name
@@ -112,21 +160,21 @@ public class ProductModel {
 		this.price = price;
 	}
 	
-	/**
-	 * Simple getter for the image
-	 * @return the image
-	 */
-	public String getImage() {
-		return image;
-	}
+	// /**
+	//  * Simple getter for the image
+	//  * @return the image
+	//  */
+	// public String getImage() {
+	// 	return image;
+	// }
 
-	/**
-	 * Simple setter for the price
-	 * @param price the price to set
-	 */
-	public void setImage(String image) {
-		this.image = image;
-	}
+	// /**
+	//  * Simple setter for the price
+	//  * @param price the price to set
+	//  */
+	// public void setImage(String image) {
+	// 	this.image = image;
+	// }
 	
 	/**
 	 * Getter for Id
@@ -178,7 +226,7 @@ public class ProductModel {
 	
 	/**
 	 * Getter for other Contacts
-	 * @return email
+	 * @return otherContacts
 	 */
 	public String getOtherContacts() {
 		return this.otherContacts;
@@ -192,52 +240,21 @@ public class ProductModel {
 		this.otherContacts = otherContacts;
 	}
 
-	/**
-	 * Simple constructor for the Car product
-	 * @param id ID of the product
-	 * @param name name of the car
-	 * @param year Year of the car
-	 * @param description description of the car
-	 * @param price Price the car is being sold for
-	 */	
-	public ProductModel(String name, int year, String description,
-			double price, String image, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
-		super();
-		this.name = name;
-		this.year = year;
-		this.description = description;
-		this.price = price;
-		this.image = image;
-		this.createdBy = createdBy;
-		this.phone = phone;
-		this.email = email;
-		this.otherContacts = otherContacts;
-		this.id = id;
-	}
+	
 
 	/**
-	 * Default constructor for the Product description
+	 * Getter for create by
+	 * @return createBy
 	 */
-	
-	
-	
-	public ProductModel() {
-		super();
-		/*
-		this.name = "";
-		this.year = 0;
-		this.description = "";
-		this.price = 0.0;
-		this.image = "";
-		this.createdBy = "";
-		this.id = new ObjectId();
-		*/
-	}
-
 	public String getCreatedBy() {
 		return createdBy;
 	}
 
+
+	/**
+	 * A setter for create by
+	 * @param createBy to create by
+	 */
 	public void setCreatedBy(String createdBy) {
 		this.createdBy = createdBy;
 	}
