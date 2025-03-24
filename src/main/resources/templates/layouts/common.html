@@ -12,7 +12,9 @@
 			<div class="bs-example">
 				<nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-4 fixed-top">
 				  <div class="container-fluid">
-				    <a class="navbar-brand" href="/">Shuqa</a>
+				    <a class="navbar-brand" href="/">
+						<img th:src="@{/images/SHOQA_LOGO.png}" alt="SHOQA logo">
+					</a>
 				    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				      <span class="navbar-toggler-icon"></span>
 				    </button>
@@ -35,10 +37,10 @@
 				      </ul>
 				      <ul class="nav navbar-nav navbar-right">
 							<li class="nav-item">
-								<a class="nav-link" href="/logout" sec:authorize="isAuthenticated()">Logout</a>
+								<a class="nav-link" href="/logout" sec:authorize="isAuthenticated()">Sign out</a>
 							</li>
 							<li class="nav-item">
-				          		<a class="nav-link" href="/login" sec:authorize="!isAuthenticated()">Login</a>
+				          		<a class="nav-link" href="/login" sec:authorize="!isAuthenticated()">Sign in</a>
 				        	</li>
 				        	<li class="nav-item">
 				          		<a class="nav-link" href="/register" sec:authorize="!isAuthenticated()">Register</a>
@@ -62,7 +64,7 @@
 			      <li class="nav-item"><a href="/" class="nav-link px-2 text-muted">Home</a></li>
 			      <li class="nav-item"><a href="/login" class="nav-link px-2 text-muted" sec:authorize="!isAuthenticated()">Login</a></li>
 			      <li class="nav-item"><a href="/register" class="nav-link px-2 text-muted" sec:authorize="!isAuthenticated()">Register</a></li>
-			      <!-- <li class="nav-item"><a href="/products" class="nav-link px-2 text-muted" sec:authorize="isAuthenticated()">Products</a></li> 
+			      <li class="nav-item"><a href="/products" class="nav-link px-2 text-muted" sec:authorize="isAuthenticated()">Products</a></li> 
 			    </ul>
 			    -->
 			    <p class="text-center text-muted">© 2025 <a href="GCU.edu">GCU</a></p>

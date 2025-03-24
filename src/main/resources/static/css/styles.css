@@ -1,6 +1,28 @@
 
-<!-- Styling all body for all pages -->
+/*Styling all body for all pages*/
 
-body {
+body{
 	margin-top: 5%;
+	width: auto;
+}
+
+.container {
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 2.5rem;
+}
+
+.products {
+	background-color: yellowgreen;
+	width: 18rem;
+}
+
+.myproducts {
+	background-color: aquamarine;
+}
+
+.img {
+	width: 400px;
+	height: 400px;
 }

@@ -50,7 +50,6 @@ public class RegisterController {
 	public String doRegister(@Valid UserModel userModel, BindingResult bindingResult, Model model) {
 		
 		if(bindingResult.hasErrors()) {
-			model.addAttribute("title", "Register Form");
 			return "register";
 		}
 		//System.out.println(userModel.getPassword());

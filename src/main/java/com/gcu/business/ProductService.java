@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import com.gcu.data.ProductDataService;
 import com.gcu.data.entity.ProductEntity;
 import com.gcu.model.ProductModel;
+import com.gcu.data.repository.ProductsRepository;
 
 /**
  * Logic for the products
@@ -17,6 +18,8 @@ import com.gcu.model.ProductModel;
 public class ProductService implements ProductServiceInterface{
 
 	@Autowired private ProductDataService service;
+
+	
 	
 	@Override
 	public List<ProductModel> getProducts() {
@@ -25,18 +28,11 @@ public class ProductService implements ProductServiceInterface{
 		List<ProductModel> productDomain = new ArrayList<ProductModel>();
 		for(var entity : productEntities) {
 			productDomain.add(new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(), 
-					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getCreatedBy(), 
+					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
 					entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId()));
 		}
 		
 		return productDomain;	
-	}
-	
-	@Override
-	public boolean createProduct(ProductModel product) {
-		return service.create(new ProductEntity(new ObjectId(), product.getName(), product.getDescription(), 
-				product.getYear(),(float) product.getPrice(), product.getCreatedBy()
-				,product.getPhone(), product.getEmail(), product.getOtherContacts())); 
 	}
 
 	@Override
@@ -46,22 +42,57 @@ public class ProductService implements ProductServiceInterface{
 
         if (entity != null) {
             return new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(),
-                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getCreatedBy(), 
+                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
                     entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId());
         } else {
             return null;
         }
 	}
+	
+	@Override
+	public boolean createProduct(ProductModel product) {
+		return service.create(new ProductEntity(new ObjectId(), product.getName(), product.getDescription(), 
+				product.getYear(),(float) product.getPrice(), product.getImages(), product.getCreatedBy()
+				,product.getPhone(), product.getEmail(), product.getOtherContacts())); 
+	}
+
+	
 
 	@Override
 	public void updateProduct(ProductModel productModel) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'updateProduct'");
+        ProductEntity entityToUpdate = new ProductEntity(productModel.getId(), productModel.getName(),
+                productModel.getDescription(), productModel.getYear(), (float) productModel.getPrice(), 
+                productModel.getImages(), productModel.getCreatedBy(), productModel.getPhone(),
+                productModel.getEmail(), productModel.getOtherContacts());
+        
+        service.update(entityToUpdate);		
 	}
+
 
 	@Override
 	public boolean delete(ObjectId id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'delete'");
+		ProductEntity entity = new ProductEntity();
+		
+		entity.setId(id);
+		return service.delete(entity);
 	}	
+
+	@Override
+	public List<ProductModel> searchProducts(String query){
+		
+		var procuctEntities = service.findByNameOrDescription(query);
+
+		List<ProductModel> productDomain = new ArrayList<>();
+
+		for (var entity : procuctEntities){
+			productDomain.add(new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(), 
+			Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
+			entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId()));
+		}
+
+		return productDomain;
+
+	}
+
+	
 }

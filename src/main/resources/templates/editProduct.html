@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate" >
+
+	<!-- layout:decorate="layouts/defaultTemplate" -->
+	<head>
+		<meta charset="UTF-8" />
+		<title>Edit Product</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1" />
+		<meta name="description" content=""/>
+	</head>
+	<body style="margin-top:5%; background-color: lightgray;"> 
+		<div layout:fragment="content">
+			<div class="container-sm" style="background-color:skyblue; font-weight: bold; padding:2%; width:50%;">
+				<form th:action="@{/products/editProduct/{productId}(productId=${productModel.id})}" th:object="${productModel}" method="post" 
+					enctype="multipart/form-data" class="row g-3 needs-validation" novalidate >
+					<input type="hidden" th:field="*{id}" />
+					<div class="col-md-6">
+						<label for="name" class="form-label">Name</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('name'))} ? is-invalid" id="name" th:field="*{name}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="description" class="form-label">Description</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('description'))} ? is-invalid" id="description" th:field="*{description}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></div>							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="year" class="form-label">Year</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}" required placeholder="1946 (optional)">
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="price" class="form-label">Price</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('price'))} ? is-invalid" id="price" th:field="*{price}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></div>							
+						</div>
+					</div>
+					
+					
+					<!--<div class="col-md-6">
+						
+							<label for="file" class="form-label">Upload Image:</label>
+							<diV>
+								<input type="file" id="file" name="file" class="form-control"  multiple required>
+							</diV>		
+					</div> -->
+
+					<!-- Image Upload and Preview Section -->
+					<div class="col-md-6">
+						<label for="file" class="form-label">Upload New Images</label>
+						<div>
+							<input type="file" id="file" name="file" class="form-control" accept="image/*" multiple>
+						</div>
+					</div>
+
+					<!-- Display Existing Images -->
+					<div class="col-md-6">
+						<label class="form-label">Current Images</label>
+						<div class="row">
+							<div th:each="image : ${productModel.images}" class="col-md-4 mb-2">
+								<img th:src="@{${image}}" alt="Product Image" class="img-thumbnail" style="max-width: 100%; height: auto;" />
+							</div>
+						</div>
+					</div>
+											
+					
+					<div class="col-md-6">
+						<label for="phone" class="form-label">Phone</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid" id="phone	" th:field="*{phone}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="email" class="form-label">Email</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('email'))} ? is-invalid" id="email" th:field="*{email}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>							
+						</div>
+					</div>
+					<div class="col-md-6">
+						<label for="otherContacts" class="form-label">Other Contacts</label>
+						<div class="input-group has-validation">					
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('otherContacts'))} ? is-invalid" id="otherContacts" th:field="*{otherContacts}" required>
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('otherContacts')}" th:errors="*{otherContacts}"></div>							
+						</div>
+					</div>
+					<div class="col-12">
+						<button type="submit" class="btn btn-primary">Submit</button>
+						<a th:href="@{/myproducts}" class="btn btn-danger" role="button">Back</a>
+					</div>
+				</form>
+			</div>
+		</div>
+	</body>
+</html>

@@ -66,15 +66,25 @@ public class ProductDataService implements DataAccessInterface<ProductEntity> {
 		}
 	}
 
+    @Override
 	public ProductEntity findById(ObjectId id) {
+
+		System.out.println("Finding product entity with ID: " + id); // Log the ID
+
 		Optional<ProductEntity> entityOp = productsRepository.findById(id);
 		
 		ProductEntity entity = null;
 		if(entityOp.isPresent()) {
 			entity = entityOp.get();
+			System.out.println("Product entity found: " + entity.getId()); // Log if found
+		} else {
+			System.out.println("Product entity not found for ID: " + id); // Log if not found
 		}
+
 		return entity;
 	}
+
+
 
 	@Override
 	public boolean update(ProductEntity product) {
@@ -110,5 +120,10 @@ public class ProductDataService implements DataAccessInterface<ProductEntity> {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+
+	
+	public List<ProductEntity> findByNameOrDescription(String query){
+		return  productsRepository.getByNameOrDescription(query);	}
 
 }

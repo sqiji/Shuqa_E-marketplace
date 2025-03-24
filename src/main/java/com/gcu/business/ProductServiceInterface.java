@@ -46,4 +46,12 @@ public interface ProductServiceInterface {
      * @return True - delete was successful, False - delete was unsuccessful
      */
 	public boolean delete(ObjectId id);
+
+
+    /**
+     * Search for products by name and discription
+     * @param query
+     * @return
+     */
+    public List<ProductModel> searchProducts(String query);
 }

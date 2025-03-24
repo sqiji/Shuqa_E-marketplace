@@ -1,42 +1,54 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="https://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layouts/defaultTemplate">
-<!--  layout:decorate="layouts/defaultTemplate"  -->
-	<head>
-		<meta charset="UTF-8" />
-		<title>Products</title>
-		<meta name="viewport" content="width=device-width,initial-scale=1" />
-		<meta name="description" content=""/>
-		<link rel="stylesheet" th:href="@{/css/styles.css}" />
-	</head>
+	<!--layout:decorate="layouts/defaultTemplate"-->
+<head>
+    <meta charset="UTF-8">
+    <title>Product's details</title>
+	<meta name="viewport" content="width=device-width,initial-scale=1" />
+	<meta name="description" content=""/>
 
-	<body style="margin-top:5%; background-color: lightgray"> 
-	
-    <div layout:fragment="content" th:action="@{'products/displayItem/' + ${productModel.id}}" th:object="${productModel}">
-        <div class="container" style="margin:10px 10px; display:flex; justify-content: center; flex-wrap: wrap; gap: 2.5rem;">
-            <div class="card" style="width: 18rem"  >
-                <!--
-                <img th:if="${productModel.image != ''}" th:src="${productModel.image}" class="card-img-top" alt="Car" style="width: 100%; height: 100%; object-fit: cover">
-                <img th:if="${productModel.image == ''}" th:src="@{/images/placeholder.png}" class="card-img-top" alt="Car" style="width: 100%; height: 100%; object-fit: cover">
-                -->
-                <div class="card-body">
-                    <h4 class="card-title" th:text="${productModel.name}">Name</h4> 
-                    <h5 class="card-title" th:text="${productModel.description}">Description</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item" th:text="'Year: ' + ${productModel.year}">Year</li>
-                        <li class="list-group-item" th:text="'Price: $' + ${productModel.price}">Price</li>
-                        <li class="list-group-item" th:text="'Seller: ' + ${productModel.createdBy}">Seller</li>
-                        <li th:if="${productModel.createdBy == user}" class="list-group-item"></li>
-                        <li class="list-group-item" th:text="'Phone: ' + ${productModel.phone}">Phone</li>
-                        <li class="list-group-item" th:text="'Email: ' + ${productModel.email}">Email</li>
-                        <li class="list-group-item" th:text="'Other Contacts: ' + ${productModel.otherContacts}">Other Contacts</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-        <div>
-			<a th:href="@{/products}" class="btn btn-danger" role="button">Back</a>
+	<link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body layout:fragment="content" style="background-color: lightgray">
+	<div class="container" >
+		<div th:if="${productModel != null}">
+			<div id="carouselExampleSlidesOnly" class="carousel slide">
+				<div class="carousel-inner ">
+					<div th:each="image, iterStat : ${productModel.images}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
+						<img th:src="@{${image}}" class="d-block" alt="Product Image" >
+					</div>
+				</div>
+				<button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="prev">
+				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Previous</span>
+				</button>
+				<button class="carousel-control-next" type="button" data-bs-target="#carouselExampleSlidesOnly" data-bs-slide="next">
+				<span class="carousel-control-next-icon" aria-hidden="true"></span>
+				<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+			<div class="card">
+				<div th:id="${productModel.id}">
+					<div class="card-body">
+						<h4 class="card-title" th:if="${productModel.name != null}" th:text="${productModel.name}">Name</h4>
+						<h5 class="card-title" th:if="${productModel.description != null}" th:text="${productModel.description}">Description</h5>
+						<ul class="list-group list-group-flush">
+							<li class="list-group-item" th:if="${productModel.year != null}" th:text="'Year: ' + ${productModel.year}">Year</li>
+							<li class="list-group-item" th:if="${productModel.price != null}" th:text="'Price: $' + ${productModel.price}">Price</li>
+							<li class="list-group-item" th:if="${productModel.createdBy != null}" th:text="'Seller: ' + ${productModel.createdBy}">Seller</li>
+							<li th:if="${productModel.createdBy == user}" class="list-group-item"></li>
+							<li class="list-group-item" th:if="${productModel.phone != null}" th:text="'Phone: ' + ${productModel.phone}">Phone</li>
+							<li class="list-group-item" th:if="${productModel.email != null}" th:text="'Email: ' + ${productModel.email}">Email</li>
+							<li class="list-group-item" th:if="${productModel.otherContacts != null}" th:text="'Other Contacts: ' + ${productModel.otherContacts}">Other Contacts</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div>
+				<a th:href="@{/products}" class="btn btn-warning" role="button">Back</a>
+			</div>
 		</div>
-    </div>
-    
+	</div>
+	
 </body>
 </html>

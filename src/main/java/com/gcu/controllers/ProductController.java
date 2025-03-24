@@ -1,19 +1,28 @@
 package com.gcu.controllers;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.server.ResponseStatusException;
 
 import com.gcu.business.ProductServiceInterface;
 import com.gcu.model.ProductModel;
@@ -41,7 +50,6 @@ public class ProductController {
 	@GetMapping(path="products")
 	public String displayProducts(Model model) {
 		List<ProductModel> products = productService.getProducts();
-    	model.addAttribute("title", "Listed Items");
     	model.addAttribute("products", products);
     	model.addAttribute("user", SecurityContextHolder.getContext().getAuthentication().getName());
     	
@@ -65,7 +73,6 @@ public class ProductController {
 	    }
 
 	    // Add attributes to the model
-	    model.addAttribute("title", "My Products");
 	    model.addAttribute("products", userProducts);
 	    model.addAttribute("user", username);
 
@@ -82,10 +89,17 @@ public class ProductController {
 	*/
 	@GetMapping(path="products/displayItem/{productId}")
 	public String displaySingleProducts(@PathVariable ObjectId productId, Model model) {
-		ProductModel productModel = productService.getProductById(productId);	    	    
+		ProductModel productModel = productService.getProductById(productId);	
+		
+		System.out.println("Fetching product with ID: " + productId); 
+		
+		if (productModel == null) {
+        	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
+   		}
 	    model.addAttribute("productModel", productModel);
 	    model.addAttribute("title", "Product's Details");
     	
+		System.out.println("Product Model: " + productModel);
     	return "displayItem";
 	}
 	
@@ -96,12 +110,11 @@ public class ProductController {
 	 * @param session Session that is used for remembering login
 	 * @return Directs to the createProduct template
 	 */
-	@GetMapping(path="products/newProduct")
-	public String displayNewProductForm(Model model) {
+	@GetMapping(path="products/createProduct")
+	public String displayCreateForm(Model model) {
 		
 		ProductModel productModel = new ProductModel();
     	model.addAttribute("productModel", productModel);
-    	model.addAttribute("title", "New Product");
 		
 		return "createProduct";
 	}
@@ -113,14 +126,70 @@ public class ProductController {
 	 * @param model Model for the webpage
 	 * @return Redirects to the products HTML template
 	 */
-	@PostMapping(path="products/newProduct")
-	public String createProduct(@Valid ProductModel productModel, BindingResult bindingResult, Model model) {
-		if(bindingResult.hasErrors())
-    	{
-    		model.addAttribute("title", "Post an Item");
-    		return "createProduct";
-    	}
-		
+	@PostMapping(path="products/createProduct")
+	public String createProduct(@Valid ProductModel productModel, BindingResult bindingResult,
+			@RequestParam(required = false) MultipartFile[] files, Model model) {
+
+		// if(bindingResult.hasErrors())
+		// {
+		// 	model.addAttribute("title", "Post an Item");
+		// 	return "createProduct";
+		// }
+
+		// Debugging Step
+		System.out.println("Received files: " + (files != null ? files.length : "null"));
+
+		if (files == null) {
+			System.out.println("File array is NULL");
+		} else {
+			for (MultipartFile file : files) {
+				System.out.println("File received: " + file.getOriginalFilename() + " | Size: " + file.getSize());
+			}
+		}
+
+		if(files == null || files.length == 0 || files[0].isEmpty()){
+			System.out.println("File upload failed: No files received!");
+			model.addAttribute("error", "At least one photo is required");
+			model.addAttribute("title", "Post an Item");
+			return "createProduct";
+		}
+
+		 // Validate file types
+		 for (MultipartFile file : files) {
+			String contentType = file.getContentType();
+			if (contentType == null || !contentType.startsWith("image/")) {
+				model.addAttribute("error", "Invalid file type. Please upload only image files.");
+				model.addAttribute("title", "Post an Item");
+				return "createProduct";
+			}
+		}
+
+		try{
+
+			//Ensure the uploaded file is exist
+			String uploadDir = "uploads/";
+			Files.createDirectories(Paths.get(uploadDir));
+
+			List<String> imagePaths = new ArrayList<>();
+			
+			for (MultipartFile file : files){
+				if(!file.isEmpty()){
+					//Save the picture
+					String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+					Path imagePath = Paths.get(uploadDir + imageName);
+					Files.write(imagePath, file.getBytes());
+                	imagePaths.add("/uploads/" + imageName);
+				}
+			}
+
+			// Convert list to a comma-separated string or JSON array (if using MongoDB)
+			productModel.setImages(imagePaths);
+		} catch(IOException e){
+			throw new RuntimeException("File upload failed", e);
+		}
+
+		//Set createBy
+	
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		productModel.setCreatedBy(auth.getName());
 		
@@ -132,5 +201,144 @@ public class ProductController {
 		
 		return "redirect:/myproducts";
 	}
+	
+
+	/**
+	 * Loads edit product page
+	 * @param model Model for webpage
+	 * @param productId ID of product to edit
+	 * @return Redirects to products page
+	 */
+	@GetMapping(path="products/editProduct/{productId}")
+	public String displayEdit(@PathVariable ObjectId productId, Model model) {
+	    ProductModel productModel = productService.getProductById(productId);
+
+	    // Check if the product exists
+	    if (productModel == null) {
+	        return "redirect:/myproducts";
+	    }
+	    
+	    String username = SecurityContextHolder.getContext().getAuthentication().getName();
+	    
+	    // Check to see if user made this
+	    if(!productModel.getCreatedBy().equals(username)) {
+	    	return "redirect:/products";
+	    }
+	    
+	    model.addAttribute("productModel", productModel);
+	    model.addAttribute("title", "Edit Product");
+	    model.addAttribute("user", username);
+
+	    return "editProduct";
+	}
+	
+	
+	/**
+	 * Edits the given product
+	 * @param productId ProductID from the url
+	 * @param productModel ProductModel with new information
+	 * @param bindingResult Binding Result used for data validation
+	 * @param model Model for website generation
+	 * @return Redirect to products if the update was successful
+	 */
+	@PostMapping(path="products/editProduct/{productId}")
+	public String updateProduct(@PathVariable ObjectId productId, @Valid ProductModel productModel, 
+			@RequestParam(value = "file", required = false) MultipartFile[] files, BindingResult bindingResult, Model model) throws IOException{
+
+	   
+		
+
+		if(bindingResult.hasErrors()) {
+	        model.addAttribute("title", "Edit Product");
+	        return "editProduct";
+	    }
+
+	    productModel.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+
+
+		//Fetching the existing product form database
+	    ProductModel existingProduct = productService.getProductById(productId);
+		if(existingProduct == null){
+			return "dredirect:/myproducts";
+		}
+
+		//File upload validation for images
+		List<String> imagePaths = new ArrayList<>();
+		if(files != null && files.length > 0 && !files[0].isEmpty()){
+			
+			// Upload new image if valid
+			String uploadDir = "uploads/";
+    		Files.createDirectories(Paths.get(uploadDir));
+
+			for (MultipartFile file : files) {
+				if (!file.isEmpty()) {
+					// Validate file type (only images allowed)
+					String contentType = file.getContentType();
+					if (contentType == null || !contentType.startsWith("image/")) {
+						model.addAttribute("error", "Only image files are allowed.");
+						model.addAttribute("title", "Edit Product");
+						return "editProduct";
+					}
+	
+					// Save the image if valid
+					String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+					Path imagePath = Paths.get(uploadDir + imageName);
+					Files.write(imagePath, file.getBytes());
+					imagePaths.add("/uploads/" + imageName);
+				}
+			}
+
+			// Only set new images if uploaded, otherwise keep existing images
+			if (!imagePaths.isEmpty()) {
+				existingProduct.setImages(imagePaths);
+			}
+		}
+
+		// Preserve existing images if no new images are uploaded
+		if (imagePaths.isEmpty()) {
+			existingProduct.setImages(existingProduct.getImages());
+		}
+
+		// Only update the changed fields
+		existingProduct.setName(productModel.getName());
+		existingProduct.setDescription(productModel.getDescription());
+		existingProduct.setPrice(productModel.getPrice());
+		existingProduct.setYear(productModel.getYear());
+		existingProduct.setPhone(productModel.getPhone());
+		existingProduct.setEmail(productModel.getEmail());
+		existingProduct.setOtherContacts(productModel.getOtherContacts());
+
+		//Save updated product
+		productService.updateProduct(existingProduct);
+	    return "redirect:/myproducts";
+	}
+
+
+	/**
+	 * Deletes the product on post request
+	 * @param model Model for website generation
+	 * @param id ProductID from the url
+	 * @return Redirect back to products
+	 */
+	@PostMapping(path="products/deleteProduct/{id}")
+	public String deleteProduct( Model model, @PathVariable("id") ObjectId id) {
+		productService.delete(id);
+		
+		List<ProductModel> products = productService.getProducts();
+		
+		model.addAttribute("products", products);
+		return "redirect:/myproducts";
+	}
+
+
+	//Adding search to the website
+	@GetMapping(path="products/search")
+	public String searchProducts(@RequestParam("query") String query, Model model) {
+		List<ProductModel> searchResults = productService.searchProducts(query);
+		model.addAttribute("products", searchResults);
+		return "products"; // Return to the products page
+	}
+
 
 }
+	

@@ -1,14 +1,14 @@
 package com.gcu.model;
 
+
+import java.util.List;
+
 import org.bson.types.ObjectId;
 
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NegativeOrZero;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Null;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -20,23 +20,25 @@ public class ProductModel {
 	private ObjectId id;
 	
 	@NotEmpty(message="name is required")
-	@Size(min = 5, max = 50, message="name must be between 5 and 50 characters")
+	@Size(min = 5, max = 50, message="Name must be between 5 and 50 characters")
 	private String name;
 	
 	@NotEmpty(message="Description is required")
-	@Size(min = 10, max = 500, message="description must be between 10 and 50 characters")
+	@Size(min = 10, max = 500, message="Description must be between 10 and 50 characters")
 	private String description;
 	
+	@Min(value = 1950, message="The year cannnot be less than 1950")
+	@Max(value = 2025, message="The year cannnot be greater than 2025")
 	private int year;
 	
 	@NotNull(message="Price is required")
 	@Min(value = 1, message="The price cannot be less than $1")
 	private double price;
 	
-	// @NotEmpty(message="Image is required")
-	// private String image;
+	@Size(min=1, max=10, message="At least 1 image shoud be uploaded and no more than 10")
+	private List<String> images;
 	
-	private String createdBy;
+	
 	
 	@NotEmpty(message="Phone number is required")
 	@Pattern(regexp = "^\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$", 
@@ -50,50 +52,53 @@ public class ProductModel {
 	
 	private String otherContacts;
 
+	private String createdBy;
+
 	/**
-	 * Simple constructor for the Car product
+	 * Paramitarized constructor for the product
 	 * @param id ID of the product
 	 * @param name name of the car
 	 * @param year Year of the car
 	 * @param description description of the car
 	 * @param price Price the car is being sold for
-	 * @param createBy the user that create or post the item
 	 * @param phone user's phone
 	 * @param email user's email
 	 * @param otherContacts user's onter contacts 
+	 * @param createBy the user that create or post the item
 	 */	
 	public ProductModel(String name, int year, String description,
-			double price, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
+			double price,List<String> images, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
 		super();
 		this.name = name;
 		this.year = year;
 		this.description = description;
 		this.price = price;
-		//this.image = image;
-		this.createdBy = createdBy;
+		this.images = images;
 		this.phone = phone;
 		this.email = email;
 		this.otherContacts = otherContacts;
+		this.createdBy = createdBy;
 		this.id = id;
 	}
 
 	/**
 	 * Default constructor for the Product description
 	 */
-	
-	
-	
+
 	public ProductModel() {
 		super();
-		/*
-		this.name = "";
-		this.year = 0;
-		this.description = "";
-		this.price = 0.0;
-		this.image = "";
-		this.createdBy = "";
-		this.id = new ObjectId();
-		*/
+		
+		// this.name = "";
+		// this.year = 0;
+		// this.description = "";
+		// this.price = 0.0;
+		// this.image = image;
+		// this.createdBy = "";
+		// this.phone = "";
+		// this.email = "";
+		// this.otherContacts = "";
+		// this.id = new ObjectId();
+		
 	}
 	
 	/**
@@ -160,21 +165,21 @@ public class ProductModel {
 		this.price = price;
 	}
 	
-	// /**
-	//  * Simple getter for the image
-	//  * @return the image
-	//  */
-	// public String getImage() {
-	// 	return image;
-	// }
+	/**
+	 * Simple getter for the images
+	 * @return the images
+	 */
+	public List<String> getImages() {
+		return images;
+	}
 
-	// /**
-	//  * Simple setter for the price
-	//  * @param price the price to set
-	//  */
-	// public void setImage(String image) {
-	// 	this.image = image;
-	// }
+	/**
+	 * Simple setter for the images
+	 * @param images the images to set
+	 */
+	public void setImages(List<String> images) {
+		this.images = images;
+	}
 	
 	/**
 	 * Getter for Id
