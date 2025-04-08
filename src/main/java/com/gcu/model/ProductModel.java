@@ -37,9 +37,10 @@ public class ProductModel {
 	
 	@Size(min=1, max=10, message="At least 1 image shoud be uploaded and no more than 10")
 	private List<String> images;
-	
-	
-	
+
+	@NotEmpty(message="The pick up location is required")
+	private String location;
+
 	@NotEmpty(message="Phone number is required")
 	@Pattern(regexp = "^\\(?[0-9]{3}\\)?[-.\\s]?[0-9]{3}[-.\\s]?[0-9]{4}$", 
 			message = "Phone number must be in a valid format (e.g., 8005555555, 800 555 5555, or 800-555-5555)")
@@ -62,18 +63,21 @@ public class ProductModel {
 	 * @param description description of the car
 	 * @param price Price the car is being sold for
 	 * @param phone user's phone
+	 * @param image product's image
+	 * @param location product's pick up location
 	 * @param email user's email
 	 * @param otherContacts user's onter contacts 
 	 * @param createBy the user that create or post the item
 	 */	
 	public ProductModel(String name, int year, String description,
-			double price,List<String> images, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
+			double price,List<String> images, String location, String createdBy, String phone, String email, String otherContacts, ObjectId id) {
 		super();
 		this.name = name;
 		this.year = year;
 		this.description = description;
 		this.price = price;
 		this.images = images;
+		this.location = location;
 		this.phone = phone;
 		this.email = email;
 		this.otherContacts = otherContacts;
@@ -179,6 +183,22 @@ public class ProductModel {
 	 */
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+
+	/**
+	 * Simple getter for the pick up location
+	 * @return pick up location
+	 */
+	public String getLocation() {
+		return location;
+	}
+
+	/**
+	 * Simple setter for the images
+	 * @param images the images to set
+	 */
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	
 	/**

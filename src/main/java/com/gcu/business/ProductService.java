@@ -28,7 +28,7 @@ public class ProductService implements ProductServiceInterface{
 		List<ProductModel> productDomain = new ArrayList<ProductModel>();
 		for(var entity : productEntities) {
 			productDomain.add(new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(), 
-					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
+					Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getLocation(), entity.getCreatedBy(), 
 					entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId()));
 		}
 		
@@ -42,7 +42,7 @@ public class ProductService implements ProductServiceInterface{
 
         if (entity != null) {
             return new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(),
-                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
+                    Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getLocation(), entity.getCreatedBy(), 
                     entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId());
         } else {
             return null;
@@ -52,8 +52,8 @@ public class ProductService implements ProductServiceInterface{
 	@Override
 	public boolean createProduct(ProductModel product) {
 		return service.create(new ProductEntity(new ObjectId(), product.getName(), product.getDescription(), 
-				product.getYear(),(float) product.getPrice(), product.getImages(), product.getCreatedBy()
-				,product.getPhone(), product.getEmail(), product.getOtherContacts())); 
+				product.getYear(),(float) product.getPrice(), product.getImages(), product.getLocation(), product.getCreatedBy(),
+				product.getPhone(), product.getEmail(), product.getOtherContacts())); 
 	}
 
 	
@@ -62,7 +62,7 @@ public class ProductService implements ProductServiceInterface{
 	public void updateProduct(ProductModel productModel) {
         ProductEntity entityToUpdate = new ProductEntity(productModel.getId(), productModel.getName(),
                 productModel.getDescription(), productModel.getYear(), (float) productModel.getPrice(), 
-                productModel.getImages(), productModel.getCreatedBy(), productModel.getPhone(),
+                productModel.getImages(), productModel.getLocation(), productModel.getCreatedBy(), productModel.getPhone(),
                 productModel.getEmail(), productModel.getOtherContacts());
         
         service.update(entityToUpdate);		
@@ -86,7 +86,7 @@ public class ProductService implements ProductServiceInterface{
 
 		for (var entity : procuctEntities){
 			productDomain.add(new ProductModel(entity.getName(), entity.getYear(), entity.getDescription(), 
-			Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getCreatedBy(), 
+			Math.round(entity.getPrice() * 100.0) / 100.0, entity.getImages(), entity.getLocation(), entity.getCreatedBy(), 
 			entity.getPhone(), entity.getEmail(), entity.getOtherContacts(), entity.getId()));
 		}
 

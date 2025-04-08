@@ -1,9 +1,10 @@
 package com.gcu.data.entity;
 
+import java.util.List;
+
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
-import java.util.List;
 
 /**
  * Instance of a product from the database
@@ -18,6 +19,7 @@ public class ProductEntity {
 	private int year;
 	private float price;
 	private List<String> images;
+	private String location;
 	private String createdBy;
 	private String phone;
 	private String email;
@@ -32,7 +34,7 @@ public class ProductEntity {
 	 * @param price Price of the item
 	 */
 	public ProductEntity(ObjectId id, String name, String description, int year, float price, 
-			List<String> images, String createdBy, String phone, String email, String otherContacts) {
+			List<String> images, String location, String createdBy, String phone, String email, String otherContacts) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -40,6 +42,7 @@ public class ProductEntity {
 		this.year = year;
 		this.price = price;
 		this.images = images;
+		this.location = location;
 		this.createdBy = createdBy;
 		this.phone = phone;
 		this.email = email;
@@ -144,6 +147,14 @@ public class ProductEntity {
 	 */
 	public void setImages(List<String> images) {
 		this.images = images;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+	
+	public void setLocation(String location) {
+		this.location = location;
 	}
 
 	public String getCreatedBy() {

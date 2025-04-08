@@ -53,9 +53,10 @@
 							<li class="list-group-item"></li>
 							<li class="list-group-item" th:text="'Year: ' + ${product.year}">Year</li>
 							<li class="list-group-item" th:text="'Price: $' + ${product.price}">Price</li>
+							<li class="list-group-item" th:text="'Location: ' + ${product.location}">Pick up location</li>
 							<li class="list-group-item" th:text="'Seller: ' + ${product.createdBy}">Seller</li>
 							<li th:if="${product.createdBy == user}" class="list-group-item"></li>
-							<li class="list-group-item" th:text="'Phone: ' + ${product.phone}">phone</li>
+							<li class="list-group-item" th:text="'Phone: ' + ${product.phone}">Phone</li>
  							<li class="list-group-item" th:text="'Email: ' + ${product.email}">Email</li>
  							<li class="list-group-item" th:text="'Other Contacts: ' + ${product.otherContacts}">Other Contacts</li>
 						</ul>

@@ -44,10 +44,6 @@ public class PasswordResetController {
         String email = request.getParameter("email");
         String token = UUID.randomUUID().toString();
 
-        //Debuging 
-        //System.out.println("Email: " + email);
-        //System.out.println("Token: " + token); 
-
         try {
             userService.updateResetPasswordToken(token, email);
 
