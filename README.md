@@ -35,6 +35,8 @@ This outlines the logical system design for the project, employing the Model-Vie
 ## Physical Solution Design:
 This document outlines the physical solution design for a web application hosted on Azure. Users can access the website via any browser on computers or mobile devices using HTTPS on port 443. The initial Azure hosting configuration includes 1 vCPU, 1.75 GB of RAM, and 10 GB of remote storage, which can be scaled based on application size and user traffic. The application's data will be stored in a Mongo database.
 
+![Physical Solutin](/Documents/Physical%20Solution.jpg)
+
 ## General Technical Approach:
 The general technical approach for developing this website involves future feature implementation, including adding a payment method for expansion and a user feedback section for improvement. While admin controls for deleting posts or users are currently out of scope, the initial development will utilize MongoDB for database support. The web application will be built using the Spring Boot and Bootstrap frameworks, with Thymeleaf as the Java HTML template engine.
 
