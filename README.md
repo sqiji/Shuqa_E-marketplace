@@ -77,5 +77,5 @@ The application's health and performance will be monitored using several tools. 
 
 ## Functional Testing and Validation using Test Cases:
 The web application was tested using a series of structured test cases documented in an Excel sheet. Each test case included a unique identifier, title, detailed steps, test data, expected results, actual results, and a pass/fail status. Only valid data was used during testing to verify that all core functionalities operated correctly. The test cases covered key features such as page navigation and form validations for fields like username, password, and other fields. This ensured that the application responded appropriately to valid user input and met the defined functional requirements. Additionally, a Traceability Matrix was used to link each test case to its corresponding user story. This helped track coverage of requirements and provided clear visibility into the testing process. The structured testing approach contributed to ensuring the reliability and quality of the application.
-Test Cases [Test cases](/Documents/Test Case.xls).
-Traceability Matrix [Traceability Matrix](/Documents/Traceability Matrix.xls).
+Test Cases [Test cases](/Documents/Test%20Case.xls).
+Traceability Matrix [Traceability Matrix](/Documents/Traceability%20Matrix.xls).
