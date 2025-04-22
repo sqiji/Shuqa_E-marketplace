@@ -23,6 +23,7 @@ Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldea
 |MongoDB | --
 |VS code | 1.95
 |Figma for design | --
+| 
 |Computer Windows OS | 11.
 
 
@@ -73,3 +74,8 @@ The application's health and performance will be monitored using several tools. 
 - Scam & Fraud Prevention – Listing validations and user-based filters help prevent spam and fake products.
 - Image Handling Performance - Large image uploads are mitigated by limiting file size and accepted formats.
 - Project Management Approach - Regular testing and iteration to ensure quality, and Version control maintained via Git for safe collaboration and rollback support.
+
+## Functional Testing and Validation using Test Cases:
+The web application was tested using a series of structured test cases documented in an Excel sheet. Each test case included a unique identifier, title, detailed steps, test data, expected results, actual results, and a pass/fail status. Only valid data was used during testing to verify that all core functionalities operated correctly. The test cases covered key features such as page navigation and form validations for fields like username, password, and other fields. This ensured that the application responded appropriately to valid user input and met the defined functional requirements. Additionally, a Traceability Matrix was used to link each test case to its corresponding user story. This helped track coverage of requirements and provided clear visibility into the testing process. The structured testing approach contributed to ensuring the reliability and quality of the application.
+Test Cases [Test cases](/Documents/Test Case.xls).
+Traceability Matrix [Traceability Matrix](/Documents/Traceability Matrix.xls).
