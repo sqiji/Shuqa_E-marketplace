@@ -71,4 +71,5 @@ The application's health and performance will be monitored using several tools. 
 ## Technical Issue and Risk Log:
 - Data Security – User credentials are protected through password hashing and secure authentication practices.
 - Scam & Fraud Prevention – Listing validations and user-based filters help prevent spam and fake products.
-- Backup & Recovery Plan – Regular data backups and error handling ensure system stability and user trust.
+- Image Handling Performance - Large image uploads are mitigated by limiting file size and accepted formats.
+- Project Management Approach - Regular testing and iteration to ensure quality, and Version control maintained via Git for safe collaboration and rollback support.
