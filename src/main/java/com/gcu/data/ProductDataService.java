@@ -109,6 +109,9 @@ public class ProductDataService implements DataAccessInterface<ProductEntity> {
 		
 		return true;
 	}
+
+	public List<ProductEntity> findByNameOrDescription(String query){
+		return  productsRepository.getByNameOrDescription(query);	} 
 	
 	@Override
 	public ProductEntity findByName(String name) {
@@ -123,7 +126,6 @@ public class ProductDataService implements DataAccessInterface<ProductEntity> {
 
 
 	
-	public List<ProductEntity> findByNameOrDescription(String query){
-		return  productsRepository.getByNameOrDescription(query);	}
+	
 
 }

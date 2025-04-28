@@ -14,22 +14,22 @@ import jakarta.servlet.MultipartConfigElement;
  */
 @SpringBootApplication
 @ComponentScan(basePackages="com.gcu")
-public class CapstoneStoreApplication {
+public class CapstoneApplication {
 	
 	/**
 	 * Main function ran
 	 * @param args Arguments
 	 */
 	public static void main(String[] args) {
-		SpringApplication.run(CapstoneStoreApplication.class, args);
+		SpringApplication.run(CapstoneApplication.class, args);
 	}
 
 	@Bean
-public MultipartConfigElement multipartConfigElement() {
-    MultipartConfigFactory factory = new MultipartConfigFactory();
-    factory.setMaxFileSize(DataSize.ofMegabytes(10));  // Max file size
-    factory.setMaxRequestSize(DataSize.ofMegabytes(20)); // Max request size
-    return factory.createMultipartConfig();
-}
+	public MultipartConfigElement multipartConfigElement() {
+		MultipartConfigFactory factory = new MultipartConfigFactory();
+		factory.setMaxFileSize(DataSize.ofMegabytes(10));  // Max file size
+		factory.setMaxRequestSize(DataSize.ofMegabytes(20)); // Max request size
+		return factory.createMultipartConfig();
+	}
 
 }

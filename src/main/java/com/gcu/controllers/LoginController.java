@@ -31,10 +31,9 @@ public class LoginController {
 	 * @return Routing to the logic page
 	 */
 	@GetMapping("/login")
-	public String display(Model model)
-	{
-        model.addAttribute("loginModel", new LoginModel());
+	public String display(Model model){
         
+		model.addAttribute("loginModel", new LoginModel());
         return "login";
 	}
 	
@@ -47,21 +46,21 @@ public class LoginController {
 	 * @return Either routing back to the Login page or to the products
 	 */ 
 	@PostMapping("/doLogin")
-    public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model)
-    {
-
+	public String doLogin(@Valid LoginModel loginModel, BindingResult bindingResult, Model model) {
+		
+		// Check for validation errors FIRST
+		if(bindingResult.hasErrors()){
+			return "login"; 
+		}
+		
+		// Then check the login credentials
 		boolean success = loginService.login(loginModel);
-
-    	if(bindingResult.hasErrors()){
-    		return "login"; 
-    	}
-    	
-    	if(!success) {
-    		model.addAttribute("loginFailed", true);
-    		return "login";	
-    		
-    	}
-    	
-    	return "redirect:/myproducts";
-    }
+		
+		if(!success) {
+			model.addAttribute("loginFailed", true);
+			return "login";    
+		}
+		
+		return "redirect:/myproducts";
+	}
 }

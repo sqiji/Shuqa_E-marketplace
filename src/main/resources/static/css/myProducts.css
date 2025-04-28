@@ -1,0 +1,115 @@
+
+/*Body styling*/
+body {
+    margin-top: 5%;
+    background-color: beige;
+}
+
+ /* Main container styling */
+ .myproducts-container {
+    padding: 20px 0;
+}
+
+/* Post button styling */
+.post-button-container {
+    text-align: right;
+    margin-bottom: 20px;
+}
+
+/* Products grid layout */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px;
+}
+
+/* Card styling */
+.product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    border: 3px bisque solid;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Carousel styling */
+.product-card .carousel {
+    height: 250px;
+    overflow: hidden;
+}
+
+.product-card .carousel-inner, 
+.product-card .carousel-item {
+    height: 100%;
+}
+
+.product-card .carousel-item img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+/* Card body styling */
+.product-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 1.25rem;
+}
+
+.product-card .card-title {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+}
+
+.product-card .card-subtitle {
+    font-size: 1rem;
+    color: #6c757d;
+    margin-bottom: 1rem;
+}
+
+/* List group styling */
+.product-card .list-group-item {
+    padding: 0.5rem 1.25rem;
+    border-left: none;
+    border-right: none;
+}
+
+/* Action buttons styling */
+.product-actions {
+    padding: 0 1.25rem 1.25rem;
+}
+
+.product-actions .btn {
+    width: 45%;
+}
+
+/* Empty state styling */
+.empty-state {
+    text-align: center;
+    padding: 40px 0;
+    grid-column: 1 / -1;
+}
+
+/* Responsive Styles */
+
+/* For smaller screens (e.g., mobile phones) */
+@media (max-width: 1024px) {
+
+  body{
+      margin-top: 10%;
+  }
+}
+
+/* For even smaller screens (e.g., very small phones) */
+@media (max-width: 480px) {
+
+  body{
+      margin-top: 20%;
+  }
+}

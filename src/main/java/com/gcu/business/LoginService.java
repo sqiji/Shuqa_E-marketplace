@@ -17,40 +17,23 @@ import com.gcu.model.LoginModel;
 public class LoginService implements LoginServiceInterface
 {
 
-    @Autowired
-    private UserRepository userRepository;  // Use UserRepository
 
 	@Autowired
-    private UserDataService userDataService;  // Use UserDataService, not UserRepository
+    private UserDataService service;  // Use UserDataService, not UserRepository
+
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
 
     @Override
     public boolean login(LoginModel loginModel) {
-        UserEntity user = userDataService.findByUsername(loginModel.getUsername());  
-        if (user != null && user.getPassword().equals(loginModel.getPassword())) {
+        
+        UserEntity user = service.findByUsername(loginModel.getUsername());  
+        if (user != null && passwordEncoder.matches(loginModel.getPassword(), user.getPassword())) {
             return true;
         }
         return false;
     }
-
-
-	// @Autowired
-	// UserDataService service;
-
-
-	// @Override
-	// public boolean login(LoginModel loginModel) {
-		
-	// 	System.out.println("LoginService: Checking user credentials...");  // Debugging
-
-	// 	UserEntity user = service.findByName(loginModel.getUsername());
-
-	// 	if(user != null && user.getPassword().equals(loginModel.getPassword())) {
-
-	// 		// User found and password matches
-	// 		return true;
-	// 	}
-	// 	return false; // Invalid credentials
-	// }
-	
 }
+	
+
 

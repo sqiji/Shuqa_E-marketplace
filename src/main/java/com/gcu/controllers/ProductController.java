@@ -17,6 +17,7 @@ import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -97,7 +98,7 @@ public class ProductController {
         	throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Product not found");
    		}
 	    model.addAttribute("productModel", productModel);
-	    model.addAttribute("title", "Product's Details");
+	    //model.addAttribute("title", "Product's Details");
     	
 		System.out.println("Product Model: " + productModel);
     	return "displayItem";
@@ -130,14 +131,21 @@ public class ProductController {
 	public String createProduct(@Valid ProductModel productModel, BindingResult bindingResult,
 			@RequestParam(required = false) MultipartFile[] files, Model model) {
 
-		// if(bindingResult.hasErrors())
-		// {
-		// 	model.addAttribute("title", "Post an Item");
-		// 	return "createProduct";
-		// }
+		
 
 		// Debugging Step
 		System.out.println("Received files: " + (files != null ? files.length : "null"));
+
+		if (productModel.getYear() != null && !productModel.getYear().isEmpty()) {
+			try {
+				int year = Integer.parseInt(productModel.getYear());
+				if (year < 1950 || year > 2025) {
+					bindingResult.rejectValue("year", "error.productModel", "The year must be between 1950 and 2025");
+				}
+			} catch (NumberFormatException e) {
+				bindingResult.rejectValue("year", "error.productModel", "Year must be a valid number");
+			}
+		}
 
 		if (files == null) {
 			System.out.println("File array is NULL");
@@ -151,6 +159,7 @@ public class ProductController {
 			System.out.println("File upload failed: No files received!");
 			model.addAttribute("error", "At least one photo is required");
 			model.addAttribute("title", "Post an Item");
+			model.addAttribute("productModel", productModel);
 			return "createProduct";
 		}
 
@@ -160,6 +169,7 @@ public class ProductController {
 			if (contentType == null || !contentType.startsWith("image/")) {
 				model.addAttribute("error", "Invalid file type. Please upload only image files.");
 				model.addAttribute("title", "Post an Item");
+				model.addAttribute("productModel", productModel);
 				return "createProduct";
 			}
 		}
@@ -182,10 +192,16 @@ public class ProductController {
 				}
 			}
 
-			// Convert list to a comma-separated string or JSON array (if using MongoDB)
+			
 			productModel.setImages(imagePaths);
 		} catch(IOException e){
 			throw new RuntimeException("File upload failed", e);
+		}
+
+		// Check for basic field validations FIRST
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("title", "Post an Item");
+			return "createProduct";
 		}
 
 		//Set createBy
@@ -232,86 +248,296 @@ public class ProductController {
 	    return "editProduct";
 	}
 	
-	
-	/**
-	 * Edits the given product
-	 * @param productId ProductID from the url
-	 * @param productModel ProductModel with new information
-	 * @param bindingResult Binding Result used for data validation
-	 * @param model Model for website generation
-	 * @return Redirect to products if the update was successful
-	 */
 	@PostMapping(path="products/editProduct/{productId}")
-	public String updateProduct(@PathVariable ObjectId productId, @Valid ProductModel productModel, 
-			@RequestParam(value = "file", required = false) MultipartFile[] files, BindingResult bindingResult, Model model) throws IOException{
+	public String updateProduct(@PathVariable ObjectId productId,
+							@Valid @ModelAttribute("productModel") ProductModel productModel,
+							BindingResult bindingResult,
+							@RequestParam(value = "files", required = false) MultipartFile[] files,
+							Model model) {
 
-	   
-		
-
-		if(bindingResult.hasErrors()) {
-	        model.addAttribute("title", "Edit Product");
-	        return "editProduct";
-	    }
-
-	    productModel.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
-
-
-		//Fetching the existing product form database
-	    ProductModel existingProduct = productService.getProductById(productId);
-		if(existingProduct == null){
-			return "dredirect:/myproducts";
+		// Validate year if provided
+		if (productModel.getYear() != null && !productModel.getYear().isEmpty()) {
+			try {
+				int year = Integer.parseInt(productModel.getYear());
+				if (year < 1950 || year > 2025) {
+					bindingResult.rejectValue("year", "error.productModel", "The year must be between 1950 and 2025");
+				}
+			} catch (NumberFormatException e) {
+				bindingResult.rejectValue("year", "error.productModel", "Year must be a valid number");
+			}
 		}
 
-		//File upload validation for images
-		List<String> imagePaths = new ArrayList<>();
-		if(files != null && files.length > 0 && !files[0].isEmpty()){
-			
-			// Upload new image if valid
-			String uploadDir = "uploads/";
-    		Files.createDirectories(Paths.get(uploadDir));
-
+		// Check if new files were uploaded (optional for update)
+		if (files != null && files.length > 0 && !files[0].isEmpty()) {
+			// Validate file types if files were uploaded
 			for (MultipartFile file : files) {
-				if (!file.isEmpty()) {
-					// Validate file type (only images allowed)
-					String contentType = file.getContentType();
-					if (contentType == null || !contentType.startsWith("image/")) {
-						model.addAttribute("error", "Only image files are allowed.");
-						model.addAttribute("title", "Edit Product");
-						return "editProduct";
+				String contentType = file.getContentType();
+				if (contentType == null || !contentType.startsWith("image/")) {
+					bindingResult.rejectValue("files", "error.productModel", "Invalid file type. Please upload only image files.");
+					break;
+				}
+			}
+		}
+
+		// Check for any validation errors
+		if (bindingResult.hasErrors()) {
+			model.addAttribute("title", "Edit Product");
+			
+			// Load existing images to redisplay them
+			ProductModel existingProduct = productService.getProductById(productId);
+			if (existingProduct != null && existingProduct.getImages() != null) {
+				productModel.setImages(existingProduct.getImages());
+			}
+			
+			return "editProduct";
+		}
+
+		try {
+			// Handle file upload if new files were provided
+			List<String> imagePaths = new ArrayList<>();
+			if (files != null && files.length > 0 && !files[0].isEmpty()) {
+				String uploadDir = "uploads/";
+				Files.createDirectories(Paths.get(uploadDir));
+
+				for (MultipartFile file : files) {
+					if (!file.isEmpty()) {
+						String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+						Path imagePath = Paths.get(uploadDir + imageName);
+						Files.write(imagePath, file.getBytes());
+						imagePaths.add("/uploads/" + imageName);
 					}
-	
-					// Save the image if valid
-					String imageName = StringUtils.cleanPath(file.getOriginalFilename());
-					Path imagePath = Paths.get(uploadDir + imageName);
-					Files.write(imagePath, file.getBytes());
-					imagePaths.add("/uploads/" + imageName);
 				}
 			}
 
-			// Only set new images if uploaded, otherwise keep existing images
+			// Get the existing product
+			ProductModel existingProduct = productService.getProductById(productId);
+			if (existingProduct == null) {
+				return "redirect:/myproducts";
+			}
+
+			// Update product fields
+			existingProduct.setName(productModel.getName());
+			existingProduct.setDescription(productModel.getDescription());
+			existingProduct.setPrice(productModel.getPrice());
+			existingProduct.setYear(productModel.getYear());
+			existingProduct.setLocation(productModel.getLocation());
+			existingProduct.setPhone(productModel.getPhone());
+			existingProduct.setEmail(productModel.getEmail());
+			existingProduct.setOtherContacts(productModel.getOtherContacts());
+
+			// Only update images if new ones were uploaded
 			if (!imagePaths.isEmpty()) {
 				existingProduct.setImages(imagePaths);
 			}
+
+			// Update the product
+			productService.updateProduct(existingProduct);
+
+			return "redirect:/myproducts";
+
+		} catch (IOException e) {
+			model.addAttribute("error", "File upload failed: " + e.getMessage());
+			model.addAttribute("title", "Edit Product");
+			
+			// Load existing images to redisplay them
+			ProductModel existingProduct = productService.getProductById(productId);
+			if (existingProduct != null && existingProduct.getImages() != null) {
+				productModel.setImages(existingProduct.getImages());
+			}
+			
+			return "editProduct";
 		}
-
-		// Preserve existing images if no new images are uploaded
-		if (imagePaths.isEmpty()) {
-			existingProduct.setImages(existingProduct.getImages());
-		}
-
-		// Only update the changed fields
-		existingProduct.setName(productModel.getName());
-		existingProduct.setDescription(productModel.getDescription());
-		existingProduct.setPrice(productModel.getPrice());
-		existingProduct.setYear(productModel.getYear());
-		existingProduct.setPhone(productModel.getPhone());
-		existingProduct.setEmail(productModel.getEmail());
-		existingProduct.setOtherContacts(productModel.getOtherContacts());
-
-		//Save updated product
-		productService.updateProduct(existingProduct);
-	    return "redirect:/myproducts";
 	}
+
+
+	
+	// /**
+	//  * Edits the given product
+	//  * @param productId ProductID from the url
+	//  * @param productModel ProductModel with new information
+	//  * @param bindingResult Binding Result used for data validation
+	//  * @param model Model for website generation
+	//  * @return Redirect to products if the update was successful
+	//  */
+	// @PostMapping(path="products/editProduct/{productId}")
+	// public String updateProduct(@PathVariable ObjectId productId, 
+    //                       @Valid @ModelAttribute("productModel") ProductModel productModel,
+    //                       BindingResult bindingResult,
+    //                       @RequestParam(value = "files", required = false) MultipartFile[] files, 
+    //                       Model model) throws IOException {
+
+	// 	 // Manually validate price if binding failed
+	// 	 if (bindingResult.hasFieldErrors("price")) {
+	// 		bindingResult.rejectValue("price", "error.price", "Please enter a valid price");
+	// 	}
+		
+	// 	//Check for any validation errors (including @Valid annotations)
+	// 	if (bindingResult.hasErrors()) {
+	// 		model.addAttribute("title", "Edit Product");
+			
+	// 		// Ensure we have the existing images for redisplay
+	// 		ProductModel existingProduct = productService.getProductById(productId);
+	// 		if (existingProduct != null && existingProduct.getImages() != null) {
+	// 			productModel.setImages(existingProduct.getImages());
+	// 		}
+			
+	// 		return "editProduct";
+	// 	}
+
+	// 	//Set the creator (if needed)
+	// 	productModel.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+
+	// 	//Fetch the existing product
+	// 	ProductModel existingProduct = productService.getProductById(productId);
+	// 	if (existingProduct == null) {
+	// 		return "redirect:/myproducts";
+	// 	}
+
+	// 	//Handle file uploads
+	// 	List<String> imagePaths = handleFileUploads(files, bindingResult, model);
+	// 	if (bindingResult.hasErrors()) {
+	// 		model.addAttribute("title", "Edit Product");
+	// 		return "editProduct";
+	// 	}
+
+
+	// 	//Update product fields
+	// 	updateProductFields(existingProduct, productModel, imagePaths);
+
+	// 	//Save updated product
+	// 	productService.updateProduct(existingProduct);
+
+	// 	return "redirect:/myproducts";
+	// }
+
+
+	// // Helper method for file upload handling
+	// private List<String> handleFileUploads(MultipartFile[] files, BindingResult bindingResult, Model model) 
+	// 	throws IOException {
+		
+	// 	List<String> imagePaths = new ArrayList<>();
+		
+	// 	if (files != null && files.length > 0 && !files[0].isEmpty()) {
+	// 		String uploadDir = "uploads/";
+	// 		Files.createDirectories(Paths.get(uploadDir));
+
+	// 		for (MultipartFile file : files) {
+	// 			if (!file.isEmpty()) {
+	// 				String contentType = file.getContentType();
+	// 				if (contentType == null || !contentType.startsWith("image/")) {
+	// 					bindingResult.rejectValue("files", "error.productModel", "Only image files are allowed");
+	// 					break;
+	// 				}
+
+	// 				String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+	// 				Path imagePath = Paths.get(uploadDir + imageName);
+	// 				Files.write(imagePath, file.getBytes());
+	// 				imagePaths.add("/uploads/" + imageName);
+	// 			}
+	// 		}
+	// 	}
+		
+	// 	return imagePaths;
+	// }
+
+	// // Helper method for updating product fields
+	// private void updateProductFields(ProductModel existingProduct, 
+	// 							ProductModel updatedProduct, 
+	// 							List<String> newImagePaths) {
+		
+	// 	existingProduct.setName(updatedProduct.getName());
+	// 	existingProduct.setDescription(updatedProduct.getDescription());
+	// 	existingProduct.setPrice(updatedProduct.getPrice());
+	// 	existingProduct.setYear(updatedProduct.getYear());
+	// 	existingProduct.setPhone(updatedProduct.getPhone());
+	// 	existingProduct.setEmail(updatedProduct.getEmail());
+	// 	existingProduct.setOtherContacts(updatedProduct.getOtherContacts());
+		
+	// 	if (newImagePaths != null && !newImagePaths.isEmpty()) {
+	// 		existingProduct.setImages(newImagePaths);
+	// 	}
+	// }
+	// @PostMapping(path="products/editProduct/{productId}")
+	// public String updateProduct(@PathVariable ObjectId productId, @Valid @ModelAttribute("productModel") ProductModel productModel, 
+	// 		@RequestParam(value = "file", required = false) MultipartFile[] files, BindingResult bindingResult, Model model) throws IOException{
+
+	   
+	// 	if(bindingResult.hasErrors()) {
+	// 		model.addAttribute("title", "Edit Product");
+	// 		return "editProduct";
+	// 	}
+
+	// 	//Check year validation
+	// 	if (productModel.getYear() != null && !productModel.getYear().isEmpty()) {
+	// 		try {
+	// 			int year = Integer.parseInt(productModel.getYear());
+	// 			if (year < 1950 || year > 2025) {
+	// 				bindingResult.rejectValue("year", "error.productModel", "The year must be between 1950 and 2025");
+	// 			}
+	// 		} catch (NumberFormatException e) {
+	// 			bindingResult.rejectValue("year", "error.productModel", "Year must be a valid number");
+	// 		}
+	// 	}
+
+	//     productModel.setCreatedBy(SecurityContextHolder.getContext().getAuthentication().getName());
+
+
+	// 	//Fetching the existing product form database
+	//     ProductModel existingProduct = productService.getProductById(productId);
+	// 	if(existingProduct == null){
+	// 		return "dredirect:/myproducts";
+	// 	}
+
+	// 	//File upload validation for images
+	// 	List<String> imagePaths = new ArrayList<>();
+	// 	if(files != null && files.length > 0 && !files[0].isEmpty()){
+			
+	// 		// Upload new image if valid
+	// 		String uploadDir = "uploads/";
+    // 		Files.createDirectories(Paths.get(uploadDir));
+
+	// 		for (MultipartFile file : files) {
+	// 			if (!file.isEmpty()) {
+	// 				// Validate file type (only images allowed)
+	// 				String contentType = file.getContentType();
+	// 				if (contentType == null || !contentType.startsWith("image/")) {
+	// 					model.addAttribute("error", "Only image files are allowed.");
+	// 					model.addAttribute("title", "Edit Product");
+	// 					return "editProduct";
+	// 				}
+	
+	// 				// Save the image if valid
+	// 				String imageName = StringUtils.cleanPath(file.getOriginalFilename());
+	// 				Path imagePath = Paths.get(uploadDir + imageName);
+	// 				Files.write(imagePath, file.getBytes());
+	// 				imagePaths.add("/uploads/" + imageName);
+	// 			}
+	// 		}
+
+	// 		// Only set new images if uploaded, otherwise keep existing images
+	// 		if (!imagePaths.isEmpty()) {
+	// 			existingProduct.setImages(imagePaths);
+	// 		}
+	// 	}
+
+	// 	// Preserve existing images if no new images are uploaded
+	// 	if (imagePaths.isEmpty()) {
+	// 		existingProduct.setImages(existingProduct.getImages());
+	// 	}
+
+	// 	// Only update the changed fields
+	// 	existingProduct.setName(productModel.getName());
+	// 	existingProduct.setDescription(productModel.getDescription());
+	// 	existingProduct.setPrice(productModel.getPrice());
+	// 	existingProduct.setYear(productModel.getYear());
+	// 	existingProduct.setPhone(productModel.getPhone());
+	// 	existingProduct.setEmail(productModel.getEmail());
+	// 	existingProduct.setOtherContacts(productModel.getOtherContacts());
+
+	// 	//Save updated product
+	// 	productService.updateProduct(existingProduct);
+	//     return "redirect:/myproducts";
+	// }
 
 
 	/**

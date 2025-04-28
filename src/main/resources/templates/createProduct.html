@@ -37,14 +37,15 @@
 					<div class="col-md-6">
 						<label for="year" class="form-label">Year</label>
 						<div class="input-group has-validation">					
-							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}" required placeholder="1946 (optional)">
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}"  placeholder="Enter year (1950-2025 or leave empty)">
 							
 						</div>
 					</div>
 					<div class="col-md-6" >
 						<label for="files" class="form-label">Upload Image:</label>
 						<div>
-							<input type="file" id="files" name="files" class="form-control"  multiple required >
+							<input type="file" id="files" name="files" class="form-control" accept="image/*"  multiple required >	
+							<div class="text-danger" th:if="${error != null}" th:text="${error}"></div>
 						</div>		
 					</div>
 					<div class="col-md-6">

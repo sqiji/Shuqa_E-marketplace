@@ -3,7 +3,7 @@
 
 body{
 	margin-top: 5%;
-	width: auto;
+	width: 100%;
 }
 
 .container {
@@ -16,13 +16,17 @@ body{
 .products {
 	background-color: yellowgreen;
 	width: 18rem;
+	height:fit-content;
+	display:block;
+	
 }
 
 .myproducts {
 	background-color: aquamarine;
+	width: 100%;
+	height:fit-content;
 }
 
-.img {
-	width: 400px;
-	height: 400px;
-}
+
+
+

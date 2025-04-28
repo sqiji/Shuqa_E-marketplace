@@ -1,0 +1,118 @@
+/* Consistent card styling */
+
+body {
+    margin-top: 5%; /* Keep this for now, but we might adjust */
+    background-color: beige;
+}
+
+.product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 3px bisque solid;
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+    width: 100%;
+}
+
+.product-card .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.product-card .card-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+
+.product-card .card-text {
+    flex-grow: 1;
+    margin-bottom: 0.75rem;
+}
+
+.product-card .price {
+    font-weight: bold;
+    color: #0d6efd;
+    margin-top: auto;
+}
+
+/* Grid layout */
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 20px 0;
+}
+
+/* Existing CSS (as provided previously) */
+
+/* Adjustments for iPad screen sizes (portrait and landscape) */
+@media (min-width: 768px) and (max-width: 1024px) {
+    body {
+        margin-top: 80px; /* Adjust this value based on your navbar's height on iPad */
+    }
+
+    .products-grid {
+        /* You might want slightly different grid settings for iPad */
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 18px;
+        padding: 18px 0;
+    }
+
+    .product-card .card-img-top {
+        height: 180px;
+    }
+
+    .product-card .card-title {
+        font-size: 1.05rem;
+    }
+
+    .product-card .card-text {
+        font-size: 0.95rem;
+    }
+}
+
+/* Existing media queries for smaller screens (phones) should remain */
+@media (max-width: 767px) {
+    body {
+        margin-top: 60px; /* Adjust if needed */
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 15px;
+        padding: 15px 0;
+    }
+
+    .product-card .card-img-top {
+        height: 150px;
+    }
+
+    .product-card .card-title {
+        font-size: 1rem;
+    }
+
+    .product-card .card-text {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 599px) {
+    body {
+        margin-top: 70px; /* Adjust if needed */
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+        padding: 10px 0;
+    }
+
+    .product-card .card-img-top {
+        height: 120px;
+    }
+}

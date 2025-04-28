@@ -39,7 +39,7 @@ public class PasswordResetController {
 
     
     @PostMapping("/forgot-password")
-    public String processProgotPassword(HttpServletRequest request, Model model) throws InterruptedException {
+    public String processFrogotPassword(HttpServletRequest request, Model model) throws InterruptedException {
         
         String email = request.getParameter("email");
         String token = UUID.randomUUID().toString();
@@ -103,7 +103,7 @@ public class PasswordResetController {
     @GetMapping("/reset-password")
     public String showResetPassword(Model model, @Param(value = "token") String token){
         
-        UserEntity user = userService.get(token);
+        UserEntity user = userService.getPassword(token);
         
         if(user == null){
             model.addAttribute("title", "Reset Password");
@@ -119,14 +119,14 @@ public class PasswordResetController {
     
 
     @PostMapping("/reset-password")
-    public String proccessResetPassword(Model model, HttpServletRequest request){
+    public String processResetPassword(Model model, HttpServletRequest request){
 
         String token = request.getParameter("token");
         String password = request.getParameter("password");
         //String confirmPassword = request.getParameter("confirmPassword");
         String confirmPassword = request.getParameter("confirmPassword"); 
 
-        UserEntity user = userService.get(token);
+        UserEntity user = userService.getPassword(token);
 
         if (!(password.equals(confirmPassword))){
             model.addAttribute("token", token);

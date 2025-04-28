@@ -38,13 +38,20 @@ public interface DataAccessInterface<T> {
 	 * @return True - deleted, False - not deleted
 	 */
 	public boolean delete(T t);
+
 	/**
 	 * Find element by it's name
-	 * @param name Searched by username for User, and make for product
+	 * @param name Searched by username for User, and name for product
 	 * @return Found element
 	 */
 	public T findByName(String name);
 	
-	public T getByUser(String userId);
+
+	/**
+	 * Find element by it's userId
+	 * @param userId Searched by userId for User, and productId for product
+	 * @return Found element
+	 */
+	public T getByUser(String id);
 	
 }

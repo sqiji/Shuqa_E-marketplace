@@ -1,7 +1,6 @@
 package com.gcu.model;
 
 import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -9,7 +8,7 @@ import jakarta.validation.constraints.Size;
  */
 public class LoginModel 
 {
-	@NotEmpty(message="User name is a reqiured field")
+	@NotEmpty(message="Username is reqiured")
 	@Size(min=5, max=50, message="Username must be at least 5 characters")
 	private String username;
 	

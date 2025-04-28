@@ -31,7 +31,9 @@
 					<div class="col-md-6">
 						<label for="year" class="form-label">Year</label>
 						<div class="input-group has-validation">					
-							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}" required placeholder="1946 (optional)">
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('year'))} ? is-invalid" id="year" th:field="*{year}"  placeholder="Enter year (1950-2025 or leave empty)">
+							<div class="invalid-feedback" th:if="${#fields.hasErrors('year')}" th:errors="*{year}"></div>
+
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -42,20 +44,18 @@
 						</div>
 					</div>
 					
-					
-					<!--<div class="col-md-6">
-						
-							<label for="file" class="form-label">Upload Image:</label>
-							<diV>
-								<input type="file" id="file" name="file" class="form-control"  multiple required>
-							</diV>		
-					</div> -->
 
 					<!-- Image Upload and Preview Section -->
 					<div class="col-md-6">
-						<label for="file" class="form-label">Upload New Images</label>
+						<label for="files" class="form-label">Upload New Images</label>
 						<div>
-							<input type="file" id="file" name="file" class="form-control" accept="image/*" multiple>
+							<!-- <input type="file" id="files" name="files" class="form-control"  multiple>
+        					
+							<div class="text-danger" th:if="${error != null}" th:text="${error}"></div> -->
+							<input type="file" id="files" name="files" class="form-control" 
+               th:classappend="${#fields.hasErrors('files')} ? 'is-invalid'" 
+               accept="image/*" multiple>
+        <div class="invalid-feedback" th:if="${#fields.hasErrors('files')}" th:errors="*{files}"></div>
 						</div>
 					</div>
 
@@ -68,19 +68,19 @@
 							</div>
 						</div>
 					</div>
-											
+
 					<div class="col-md-6">
 						<label for="location" class="form-label">Pick Up Location</label>
 						<div class="input-group has-validation">					
 							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('location'))} ? is-invalid" id="location" th:field="*{location}" required>
 							<span class="invalid-feedback" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>							
 						</div>
-					</div>
+					</div>					
 					
 					<div class="col-md-6">
 						<label for="phone" class="form-label">Phone</label>
 						<div class="input-group has-validation">					
-							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid" id="phone	" th:field="*{phone}" required>
+							<input type="text" class="form-control" th:classappend="${not #lists.isEmpty(#fields.errors('phone'))} ? is-invalid" id="phone" th:field="*{phone}" required>
 							<div class="invalid-feedback" th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}"></div>							
 						</div>
 					</div>

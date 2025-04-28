@@ -7,12 +7,13 @@
 		<meta name="viewport" content="width=device-width,initial-scale=1" />
 		<meta name="description" content=""/>
 		<link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
-		<link rel="stylesheet" th:href="@{/css/styles.css}" />
+		<link rel="stylesheet" th:href="@{/css/products.css}" />
 		
 	</head>
 
-	<body layout:fragment="content" style="background-color: rgb(57, 158, 158);"> 
-		<div>
+	<body layout:fragment="content">
+		<div class="container">
+			
 			<div class="col-md-2">
 				<div>
 					<form th:action="@{/products/search}" method="get">
@@ -24,36 +25,17 @@
 					</form>
 				</div>
 			</div>
-
 			<div th:if="${#lists.isEmpty(products) || products.empty}" class="alert alert-warning text-center">
-				No products found.
+				No products found matching your search.
 			</div>
-
-			<div class="container mt-5">
-				
-
-				<div class="card products" th:each="product : ${products}" th:id="${product.id}">
-
-					<a style="background-color: yellowgreen;" th:href="@{/products/displayItem/{productId}(productId=${product.id})}" class="btn btn-secondary">
-						<div class="card-body" style="background-color: yellowgreen;">
-							
-							<div id="carouselExampleSlidesOnly" class="carousel slide" data-bs-ride="carousel" data-bs-interval="2000">
-								<div class="carousel-inner">
-									<!--<div class="carousel-item active">-->
-									<div th:each="image, iterStat : ${product.images}" class="carousel-item" th:classappend="${iterStat.index == 0} ? 'active'">
-										<img th:src="@{${image}}" class="d-block w-100" alt="Product Image" >
-									</div>
-
-								</div>
-								
-							</div>
-
-							<h4 class="card-title" th:text="${product.name}" style="color: black;">Name</h4> 
-							
-							<h6 class="list-group-item" th:text="'$' + ${product.price}">Price</h6>
-							
-						</div>
-					</a>	
+			<div class="products-grid">
+				<div th:each="product : ${products}" class="card product-card">
+					<img th:src="@{${product.images[0]}}" class="card-img-top" alt="Product image" th:if="${product.images != null and !product.images.empty}">
+					<div class="card-body">
+						<h5 class="card-title" th:text="${product.name}">Product Name</h5>
+						<div class="price" th:text="'$' + ${product.price}">$0.00</div>
+						<a th:href="@{/products/displayItem/{productId}(productId=${product.id})}" class="btn btn-primary mt-2">View Details</a>
+					</div>
 				</div>
 			</div>
 		</div>

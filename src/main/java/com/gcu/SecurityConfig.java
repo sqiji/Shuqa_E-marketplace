@@ -23,11 +23,12 @@ public class SecurityConfig
 		.authorizeHttpRequests(auth -> auth
 				.requestMatchers("/", "/register", "/doRegister", "/images/**", "/products",  
 				"/forgot-password", "/reset-password", "/reset-password?token=", "/message", 
-				"/products/displayItem/**", "/uploads/**", "/css/**", "/products/search/**").permitAll()
+				"/products/displayItem/**", "/uploads/**", "/css/**", "/products/search/**", "/favicon.ico").permitAll()
 				.anyRequest().authenticated())
 		.formLogin(form -> form.loginPage("/login")
 				.usernameParameter("username").passwordParameter("password").permitAll()
-				.defaultSuccessUrl("/myproducts", true))
+				.defaultSuccessUrl("/myproducts", true)
+				.failureUrl("/login?error=true"))
 			.logout(lo -> lo
 					.logoutUrl("/logout").invalidateHttpSession(true)
 					.clearAuthentication(true).permitAll()

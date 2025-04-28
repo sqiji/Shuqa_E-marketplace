@@ -16,7 +16,7 @@ public class ProductEntity {
 	private ObjectId id;
 	private String name;
 	private String description;
-	private int year;
+	private String year;
 	private float price;
 	private List<String> images;
 	private String location;
@@ -33,7 +33,7 @@ public class ProductEntity {
 	 * @param year Year of the item
 	 * @param price Price of the item
 	 */
-	public ProductEntity(ObjectId id, String name, String description, int year, float price, 
+	public ProductEntity(ObjectId id, String name, String description, String year, float price, 
 			List<String> images, String location, String createdBy, String phone, String email, String otherContacts) {
 		super();
 		this.id = id;
@@ -110,14 +110,14 @@ public class ProductEntity {
 	/**
 	 * @return the year
 	 */
-	public int getYear() {
+	public String getYear() {
 		return year;
 	}
 
 	/**
 	 * @param year the year to set
 	 */
-	public void setYear(int year) {
+	public void setYear(String year) {
 		this.year = year;
 	}
 

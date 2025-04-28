@@ -33,7 +33,6 @@ public class RegisterController {
 	 */
 	@GetMapping("/register")
 	public String display(Model model) {
-		model.addAttribute("title", "Register Form");
 		model.addAttribute("userModel", new UserModel());
 		
 		return "register";

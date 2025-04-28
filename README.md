@@ -13,70 +13,129 @@ Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldea
 
 ### Hardwate and Software Technoogies
 
-|Milestone|Version|
+|Technology|Version|
 |--|--|
-|Spring Boot | 3.2
-|Java | 17.
-|Thymeleaf | 3.2
-|Bootstrap | 5
-|HTML and CSS | 5 - 3
-|MongoDB | --
-|VS code | 1.95
-|Figma for design | --
-| 
-|Computer Windows OS | 11.
+| Spring Boot       | 3.2     |
+| Java              | 17      |
+| Thymeleaf         | 3.2     |
+| Bootstrap         | 5       |
+| HTML and CSS      | HTML5, CSS3 |
+| MongoDB           | Atlas Cloud Database |
+| VS Code           | 1.95    |
+| Figma (UI/UX Design) | -    |
+| smtp.gmail.com | - |
+| Operating System  | Windows 11 |
 
 
 ## Logical Solution Design:
-This outlines the logical system design for the project, employing the Model-View-Controller (MVC) architectural pattern. The design separates the application into three interconnected layers: the presentation layer for user interaction, the business layer containing application logic, and the data access layer for database communication. The front-end user interface is built using Bootstrap for CSS frameworks and styling, and Thymeleaf for HTML templating. Controllers in the business layer act as intermediaries, handling HTTP requests and responses between the presentation and business layers. The business layer, developed with Spring Boot and Java, manages application logic and interactions with the database through the data access layer. Finally, the data access layer is responsible for performing CRUD operations on the MongoDB database used for data storage.
+This project employs the **Model-View-Controller (MVC)** architectural pattern, separating concerns into three layers: presentation, business logic, and data access. 
+
+- **Front-end**: Built using **Bootstrap** and **Thymeleaf** templates for responsive UI design.
+- **Business Layer**: Developed with **Spring Boot** and **Java** for handling application logic and managing user sessions.
+- **Data Access Layer**: Communicates with **MongoDB** to perform CRUD operations.
 
 ![Screen1](/Documents/Logical%20Solution%20Design.png)
 
 
 ## Physical Solution Design:
-This document outlines the physical solution design for a web application hosted on Azure. Users can access the website via any browser on computers or mobile devices using HTTPS on port 443. The initial Azure hosting configuration includes 1 vCPU, 1.75 GB of RAM, and 10 GB of remote storage, which can be scaled based on application size and user traffic. The application's data will be stored in a Mongo database.
 
-![Physical Solutin](/Documents/Physical%20Solution.jpg)
+
+![Physical Solutoin](/Documents/Physical%20Solution.png)
 
 ## General Technical Approach:
-The general technical approach for developing this website involves future feature implementation, including adding a payment method for expansion and a user feedback section for improvement. While admin controls for deleting posts or users are currently out of scope, the initial development will utilize MongoDB for database support. The web application will be built using the Spring Boot and Bootstrap frameworks, with Thymeleaf as the Java HTML template engine.
+The initial focus is on building a functional marketplace platform. Future enhancements include:
+- Adding payment integrations
+- User feedback and review system
+- Admin panel for managing listings
+
+The web application is built using **Spring Boot**, **Bootstrap**, and **Thymeleaf** for rapid and scalable development.
 
 ## Key Technical Design Decisions:
-The VS Code is used as the IDE due to its Java support and ease of use. Spring Boot is chosen as the backend framework for its simplicity, dependency injection, configuration ease, and modern web application support. Java is the chosen programming language because it's platform-independent (runs on JVM), supports Spring, and offers extensive libraries. Thymeleaf will be the server-side Java template engine, allowing for directly viewable HTML templates and seamless integration with Spring Boot. Bootstrap is selected as the front-end framework for its mobile-first approach, ensuring the website's responsiveness across various screen sizes.
+- **IDE**: VS Code for lightweight Java development and Git integration.
+- **Backend Framework**: Spring Boot for simplicity, dependency injection, and production-ready support.
+- **Programming Language**: Java 17 for its platform independence, performance, and compatibility with Spring.
+- **Frontend Framework**: Bootstrap for mobile-first responsive design.
+- **Template Engine**: Thymeleaf for server-side rendering and seamless Spring Boot integration.
+- **Gmail**: for sending the reset password link to user.
 
 ## Schema ER Diagram:
-The application will use MongoDB as its database, which will consist of two collections: "Products" to store all user-created product posts, and "Users" to hold information about registered users. The relationship between users and products is one-to-many, meaning each user can create multiple product posts.
+The application uses MongoDB with two main collections:
+- **Users**: Stores user credentials and profile information.
+- **Products**: Stores product listings created by users.
+
+Relationship: **One-to-Many** (One user → many products).
 
 ![Screen2](/Documents/ERDiagram.png)
 
 ## Flow Charts/Process Flows:
-The website workflow starts with the user accessing the URL, which opens the homepage. The navigation bar allows users to visit other pages, including login and registration. Users can also access the products page to view all listed items. The flowchart indicates that registration and login are required to access core functionalities like creating, updating, and deleting posts. The system includes checks for valid usernames and passwords during login, as well as validation of user-entered information when creating or updating posts.
+The application flow includes:
+- Accessing the homepage
+- Navigating via the navbar
+- Registration and login validation
+- Posting, editing, and deleting products (authenticated users only)
+- Reset password by sending the link to the user via email.
 
-Click to display [flowchart](/Documents/Flowchart.jpg).
+[Flowchart](/Documents/Flowchart.jpg).
 
 ## Sitemap Diagram:
-The sitemap diagram illustrates user navigation within the website, primarily through the navigation bar. Additionally, some pages will contain direct links to related pages, such as a link from the login page to the registration page for unregistered users. Upon entering the website's URL, users will first land on the homepage, and from there, they will utilize the navigation bar to explore other sections of the site. Click to display [Sitemap](/Documents/Sitemappng.jpg).
+The sitemap outlines navigation routes between the homepage, login, registration, products listing, and other key areas.
+
+[Sitemap](/Documents/SiteMap.png).
 
 ## User Interface Diagrams:
-User interface (wireframe) was designed using figma. Click to display [the wireframe](/Documents/wireframe.jpg).
+Wireframes were designed in **Figma** to plan and validate the user experience before implementation. <br>
+[Wireframe](/Documents/wireframe.jpg).
 
 ## UML Diagrams:
-Below is the UML diagram for my product. Click to display [the UML](/Documents/UML.jpg).
+The system's object-oriented structure is represented using a UML Class Diagram. <br>
+[UML](/Documents/UML.jpg).
 
-### NFR’s (Security Design, etc.):
-The primary non-functional requirement for this web application is security. Only authorized users will be able to access features like creating, updating, and deleting posts, with user authentication being verified during login using username and password checks. To enhance security, user passwords will be encrypted using the BCrypt hash algorithm. Additionally, a daily database backup will be performed after midnight to mitigate data loss, limiting potential data loss to a maximum of 24 hours.
+## Non-Functional Requirements (NFRs)
+- **Security**: 
+  - User authentication via username/password.
+  - Passwords encrypted with **BCrypt** hashing.
+- **Data Integrity**: 
+  - Daily database backups.
+- **Responsiveness**: 
+  - Mobile-first design using Bootstrap
 
 ## Operational Support Design:
-The application's health and performance will be monitored using several tools. Spring Boot Actuator, a built-in module, provides production-ready features and actuator endpoints for application monitoring. Additionally, Azure Monitor will be utilized to collect data across all application layers, enabling performance checks and issue identification. Azure Monitor Logs, a centralized logging service, will gather and analyze data from Azure, with Log Analytics Workspace used for storage and querying. For application-level logging within the Spring Boot framework, Logback, a Java logging framework, will be employed.
+- **Spring Boot Actuator**: Health and performance monitoring.
+- **Azure Monitor**: Cloud-level monitoring.
+- **Azure Log Analytics**: Centralized logs.
+- **Logback (Spring Boot)**: Application-level logging.
 
-## Technical Issue and Risk Log:
-- Data Security – User credentials are protected through password hashing and secure authentication practices.
-- Scam & Fraud Prevention – Listing validations and user-based filters help prevent spam and fake products.
-- Image Handling Performance - Large image uploads are mitigated by limiting file size and accepted formats.
-- Project Management Approach - Regular testing and iteration to ensure quality, and Version control maintained via Git for safe collaboration and rollback support.
+## Technical Issues and Risk Log
+| Risk / Issue | Management Approach |
+|--------------|----------------------|
+| Data Security | Encrypted password storage and user authentication |
+| Scam & Fraud Prevention | Listing validations, user reporting mechanisms (planned) |
+| Image Handling Performance | Limit file size and types for uploads |
+| Project Management | Git-based version control and regular testing |
 
-## Functional Testing and Validation using Test Cases:
-The web application was tested using a series of structured test cases documented in an Excel sheet. Each test case included a unique identifier, title, detailed steps, test data, expected results, actual results, and a pass/fail status. Only valid data was used during testing to verify that all core functionalities operated correctly. The test cases covered key features such as page navigation and form validations for fields like username, password, and other fields. This ensured that the application responded appropriately to valid user input and met the defined functional requirements. Additionally, a Traceability Matrix was used to link each test case to its corresponding user story. This helped track coverage of requirements and provided clear visibility into the testing process. The structured testing approach contributed to ensuring the reliability and quality of the application.<br>
+## Functional Testing and Validation
+A structured testing approach was followed:
+- **Test Cases**:
+  - Covered navigation, form validations, login, registration, and product management.
+- **Traceability Matrix**:
+  - Mapped test cases to user stories to ensure complete requirement coverage.
 
-Test Cases [Test cases](/Documents/Test%20Case.xls).<br>
-Traceability Matrix [Traceability Matrix](/Documents/Traceability%20Matrix.xls).
+[Test Cases (Excel)](/Documents/TestCase.xls)  
+[Traceability Matrix (Excel)](/Documents/TraceabilityMatrix.xls)
+
+## New Technologies Learned
+During the Shuqa project, I learned:
+- **MongoDB**: Implemented flexible NoSQL database structures.
+- **Azure Cloud Services**: Deployed and monitored a cloud-based web application.
+- **Spring Boot Actuator**: Implemented application health monitoring.
+
+These technologies were selected to build a modern, scalable, and maintainable web application.
+
+---
+
+# Conclusion
+Shuqa is a full-stack web application addressing real-world community needs. It reflects best practices in software design, security, cloud deployment, and operational monitoring, while providing a solid foundation for future enhancements.
+
+
+# Other Documents
+- Project Requirements.

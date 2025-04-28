@@ -1,0 +1,75 @@
+body{
+    margin-top: 5%;
+    background-color: lightgray;
+}
+.product-carousel {
+    max-width: 600px; 
+    margin: 0 auto;
+    height: auto; 
+    margin-bottom: 5px; 
+}
+
+.product-carousel .carousel-inner {
+    height: 100%;
+}
+
+.product-carousel .carousel-item {
+    height: 100%;
+    text-align: center;
+}
+
+.product-carousel img {
+    max-height: 500px;
+    width: auto;
+    max-width: 100%;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.product-details {
+    max-width: 600px;
+    margin: 20px auto;
+}
+
+.container > div {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+
+/* Responsive Styles */
+
+/* For smaller screens (e.g., mobile phones) */
+@media (max-width: 1024px) {
+    body{
+        margin-top: 10%;
+    }
+    .section {
+        padding: 1rem 2rem; /* Reduce padding */
+    }
+    .hero h1 {
+        font-size: 1.5rem; /* Smaller heading */
+    }
+    .skills-container {
+        grid-template-columns: 1fr; /* Stack skills vertically */
+    }
+    .projects-grid {
+        grid-template-columns: 1fr; /* Stack projects vertically */
+    }
+}
+
+/* For even smaller screens (e.g., very small phones) */
+@media (max-width: 480px) {
+
+    body{
+        margin-top: 20%;
+    }
+    .section-title {
+        font-size: 1.2rem; /* Even smaller title */
+    }
+}
+
+/* Make images responsive (if you have them) */
+img {
+    max-width: 100%;
+    height: auto;
+}

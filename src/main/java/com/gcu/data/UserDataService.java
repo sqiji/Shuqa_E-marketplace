@@ -126,7 +126,7 @@ public class UserDataService implements DataAccessInterface<UserEntity> {
 		}
 	}
 
-	public UserEntity get(String resetPasswordToken){
+	public UserEntity getPassword(String resetPasswordToken){
 		return registerRepository.findByResetPasswordToken(resetPasswordToken);
 	}
 

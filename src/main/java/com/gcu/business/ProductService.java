@@ -52,8 +52,8 @@ public class ProductService implements ProductServiceInterface{
 	@Override
 	public boolean createProduct(ProductModel product) {
 		return service.create(new ProductEntity(new ObjectId(), product.getName(), product.getDescription(), 
-				product.getYear(),(float) product.getPrice(), product.getImages(), product.getLocation(), product.getCreatedBy(),
-				product.getPhone(), product.getEmail(), product.getOtherContacts())); 
+				product.getYear(),(float) product.getPrice(), product.getImages(), product.getLocation(), product.getCreatedBy()
+				,product.getPhone(), product.getEmail(), product.getOtherContacts())); 
 	}
 
 	
