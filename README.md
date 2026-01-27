@@ -125,13 +125,14 @@ A structured testing approach was followed:
 [Traceability Matrix (Excel)](/Documents/TraceabilityMatrix.xls)
 
 ## New Technologies Learned
-During the Shuqa project, I learned:
-- **MongoDB**: Implemented flexible NoSQL database structures.
-- **Azure Cloud Services**: Deployed and monitored a cloud-based web application.
-- **Spring Boot Actuator**: Implemented application health monitoring.
+During the Shuqa project, I gained hands-on experience in:
+- **MongoDB & NoSQL Design**: Implemented flexible document-oriented structures to manage variable product metadata and optimized data retrieval using Spring Data MongoDB.
+- **Spring Security 6**: Developed a robust authentication layer utilizing BCrypt password hashing and role-based access logic to protect user data.
+- **Automated Communication (SMTP)**: Integrated JavaMailSender to handle automated system emails, specifically for secure password reset workflows via the Gmail API.
+- **File I/O & Mapping**: Engineered a system to manage local multipart file uploads, linking physical storage paths to database entries for dynamic image rendering.
+- **Thymeleaf Layout Dialect**: Mastered server-side template fragmenting to create a modular, reusable, and maintainable frontend architecture.
 
-These technologies were selected to build a modern, scalable, and maintainable web application.
-
+These technologies were selected to build a secure, data-driven, and community-focused web application that bridges the gap between ancient cultural roots and modern commerce.
 ---
 
 # Conclusion
