@@ -11,20 +11,20 @@ This app fills a crucial gap by providing a local online marketplace where bank 
 ## The name of Shuqa?
 Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldean civilization, means Bazar.
 
-### Hardwate and Software Technoogies
+### Hardwate and Software Technologies
 
 |Technology|Version|
-|--|--|
-| Spring Boot       | 3.2     |
-| Java              | 17      |
-| Thymeleaf         | 3.2     |
-| Bootstrap         | 5       |
-| HTML and CSS      | HTML5, CSS3 |
-| MongoDB           | Atlas Cloud Database |
-| VS Code           | 1.95    |
-| Figma (UI/UX Design) | -    |
-| smtp.gmail.com | - |
-| Operating System  | Windows 11 |
+|Category|Technology|Verion/Tool|
+|Backend Framework | Spring Boot    | 3.2     |
+|Language          | Java           | 17      |
+|Frontend Engine   | Thymeleaf      | 3.2     |
+|CSS Framework     | Bootstrap      | 5       |
+|Web Standerds     | HTML5 and CSS3 | HTML5, CSS3 |
+|Database          | MongoDB        | Atlas Cloud (NoSQL) |
+|IDE               | VS Code        | 1.95    |
+|UI/UX Design      | Figma          | Wirefranes |
+|Communicaton      | SMTP           | Gmail API Integration |
+| Operating System | Windows 11 |
 
 
 ## Logical Solution Design:
@@ -73,7 +73,7 @@ The application flow includes:
 - Navigating via the navbar
 - Registration and login validation
 - Posting, editing, and deleting products (authenticated users only)
-- Reset password by sending the link to the user via email.
+- Implemented an SMTP-based automated password recovery workflow.
 
 [Flowchart](/Documents/Flowchart.jpg).
 
@@ -140,7 +140,7 @@ Shuqa is a full-stack web application addressing real-world community needs. It 
 # Other Documents
 - [Project Proposal](/Documents/OtherDoc/ProjectProposal.pdf)
 - [Project Requirements](/Documents/OtherDoc/ProjectRequirements.pdf)
-- [Project Archirecture & Design](/Documents/OtherDoc/ProjectArchitecture&Design.pdf)
+- [Project Architecture & Design](/Documents/OtherDoc/ProjectArchitecture&Design.pdf)
 - [Sprint Back Log](/Documents/OtherDoc/SprintBackLog.xls)
 -[Test Cases](/Documents/OtherDoc/TestCase.xls)
 - [Traceability Matrix](/Documents/OtherDoc/TraceabilityMatrix.xls) 
