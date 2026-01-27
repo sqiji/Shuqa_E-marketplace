@@ -13,8 +13,8 @@ Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldea
 
 ### Hardwate and Software Technologies
 
-|Technology|Version|
-|Category|Technology|Verion/Tool|
+
+|Category          |Technology      |Verion/Tool|
 |Backend Framework | Spring Boot    | 3.2     |
 |Language          | Java           | 17      |
 |Frontend Engine   | Thymeleaf      | 3.2     |
@@ -24,7 +24,7 @@ Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldea
 |IDE               | VS Code        | 1.95    |
 |UI/UX Design      | Figma          | Wirefranes |
 |Communicaton      | SMTP           | Gmail API Integration |
-| Operating System | Windows 11 |
+| Operating System | Windows 11     |
 
 
 ## Logical Solution Design:
