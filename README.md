@@ -148,3 +148,7 @@ Shuqa is a full-stack web application addressing real-world community needs. It 
 
 ## Demo of web-application:
 [Video](https://youtu.be/Zrg2Buge7x0?si=BrY6etBNwIJEZ6e6)
+
+---
+**Author: Soran Qiji/
+Capstone project**
