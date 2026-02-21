@@ -147,7 +147,7 @@ Shuqa is a full-stack web application addressing real-world community needs. It 
 - [Traceability Matrix](/Documents/OtherDoc/TraceabilityMatrix.xls)
 
 ## Presentation and Demo of web-application:
-[Presentation](https://docs.google.com/presentation/d/16-aSUV5GLBojpu2LhCAKKiuN7QfCmuwZkUIENaMM5TQ/edit?usp=sharing). <br> 
+[Presentation](https://docs.google.com/presentation/d/16-aSUV5GLBojpu2LhCAKKiuN7QfCmuwZkUIENaMM5TQ/edit?usp=sharing) <br> 
 [Video](https://youtu.be/Zrg2Buge7x0?si=BrY6etBNwIJEZ6e6)
 
 ---
