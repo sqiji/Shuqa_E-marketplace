@@ -3,26 +3,26 @@
 # Shuqa - E-marketplace
 
 ## Table of Contents
-- [What is Shuqa?](#-What-is-Shuqa?)
-- [Why Shuqa](#-Why-Shuqa?)
-- [The name of Shuqa?](#-The-name-of-Shuqa?)
-- [Hardwate and Software Technologies](#-Hardwate-and-Software-Technologies)
-- [Logical Solution Design](#-Logical-Solution-Design)
-- [Physical Solution Design](#-Physical-Solutin-Design)
-- [General Technical Approach](#-General-Technical-Approach)
-- [Key Technical Design Decisions](#-Key-Technical-Design-Decisions)
-- [Schema ER Diagram](#-Schema-ER-Diagram)
-- [Flow Charts/Process Flows](#-Flow-Charts/Process-Flows)
-- [Sitemap Diagram](#-Sitemap-Diagram)
-- [User Interface Diagrams](#-User-Interface-Diagrams)
-- [UML Diagram](#-UML-Diagram)
-- [Non-Functional Requirements (NFRs)](#-Non-Functional-Requirements-(NFRs))
-- [Operational Support Design](#-Operational-Support-Design)
-- [Technical Issues and Risk Log](#-Technical-Issues-and-Risk-Log)
-- [Functional Testing and Validation](#-Functional-Testing-and-Validation)
-- [New Technologies Learned](#-New-Technologies-Learned)
-- [Conclusion](#-Conclusion)
-- [Presentation and Demo of web-application](Presentation-and-Demo-of-web/-application)
+- [What is Shuqa?](#What-is-Shuqa?)
+- [Why Shuqa](#Why-Shuqa?)
+- [The name of Shuqa?](The-name-of-Shuqa?)
+- [Hardwate and Software Technologies](#Hardwate-and-Software-Technologies)
+- [Logical Solution Design](#Logical-Solution-Design)
+- [Physical Solution Design](#Physical-Solutin-Design)
+- [General Technical Approach](#General-Technical-Approach)
+- [Key Technical Design Decisions](#Key-Technical-Design-Decisions)
+- [Schema ER Diagram](#Schema-ER-Diagram)
+- [Flow Charts/Process Flows](#Flow-Charts/Process-Flows)
+- [Sitemap Diagram](#Sitemap-Diagram)
+- [User Interface Diagrams](#User-Interface-Diagrams)
+- [UML Diagram](#UML-Diagram)
+- [Non-Functional Requirements (NFRs)](#Non-Functional-Requirements-(NFRs))
+- [Operational Support Design](#Operational-Support-Design)
+- [Technical Issues and Risk Log](#Technical-Issues-and-Risk-Log)
+- [Functional Testing and Validation](#Functional-Testing-and-Validation)
+- [New Technologies Learned](#New-Technologies-Learned)
+- [Conclusion](#Conclusion)
+- [Presentation and Demo of web-application](#Presentation-and-Demo-of-web/-application)
 
 ## What is Shuqa? 
 Shuqa is a local online marketplace connecting buyers and sellers within communities. Users can browse listings without an account, but registration is needed to post and manage items. It's designed for local commerce and community interaction.
@@ -146,7 +146,7 @@ A structured testing approach was followed:
 [Test Cases (Excel)](/Documents/TestCase.xls)  
 [Traceability Matrix (Excel)](/Documents/TraceabilityMatrix.xls)
 
-## New Technologies Learned
+# New Technologies Learned
 During the Shuqa project, I gained hands-on experience in:
 - **MongoDB & NoSQL Design**: Implemented flexible document-oriented structures to manage variable product metadata and optimized data retrieval using Spring Data MongoDB.
 - **Spring Security 6**: Developed a robust authentication layer utilizing BCrypt password hashing and role-based access logic to protect user data.
@@ -157,10 +157,10 @@ During the Shuqa project, I gained hands-on experience in:
 These technologies were selected to build a secure, data-driven, and community-focused web application that bridges the gap between ancient cultural roots and modern commerce.
 ---
 
-## Conclusion
+# Conclusion
 Shuqa is a full-stack web application addressing real-world community needs. It reflects best practices in software design, security, cloud deployment, and operational monitoring, while providing a solid foundation for future enhancements.
 
-## Other Documents
+# Other Documents
 - [Project Proposal](/Documents/OtherDoc/ProjectProposal.pdf)
 - [Project Requirements](/Documents/OtherDoc/ProjectRequirements.pdf)
 - [Project Architecture & Design](/Documents/OtherDoc/ProjectArchitecture&Design.pdf)
@@ -168,7 +168,7 @@ Shuqa is a full-stack web application addressing real-world community needs. It 
 -[Test Cases](/Documents/OtherDoc/TestCase.xls)
 - [Traceability Matrix](/Documents/OtherDoc/TraceabilityMatrix.xls)
 
-## Presentation and Demo of web-application:
+# Presentation and Demo of web-application:
 [Presentation](https://docs.google.com/presentation/d/16-aSUV5GLBojpu2LhCAKKiuN7QfCmuwZkUIENaMM5TQ/edit?usp=sharing) <br> 
 [Video](https://youtu.be/Zrg2Buge7x0?si=BrY6etBNwIJEZ6e6)
 
