@@ -33,7 +33,7 @@ This app fills a crucial gap by providing a local online marketplace where bank 
 ## The name of Shuqa?
 Shuqa in Chaldean Neo-Aramaic, a language with deep roots in the ancient Chaldean civilization, means Bazar.
 
-### Hardwate and Software Technologies
+## Hardwate and Software Technologies
 
 
 |Category          |Technology      |Verion/Tool|
@@ -157,10 +157,10 @@ During the Shuqa project, I gained hands-on experience in:
 These technologies were selected to build a secure, data-driven, and community-focused web application that bridges the gap between ancient cultural roots and modern commerce.
 ---
 
-# Conclusion
+## Conclusion
 Shuqa is a full-stack web application addressing real-world community needs. It reflects best practices in software design, security, cloud deployment, and operational monitoring, while providing a solid foundation for future enhancements.
 
-# Other Documents
+## Other Documents
 - [Project Proposal](/Documents/OtherDoc/ProjectProposal.pdf)
 - [Project Requirements](/Documents/OtherDoc/ProjectRequirements.pdf)
 - [Project Architecture & Design](/Documents/OtherDoc/ProjectArchitecture&Design.pdf)
