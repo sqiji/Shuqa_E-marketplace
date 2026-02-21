@@ -107,7 +107,7 @@ The application uses MongoDB with two main collections:
 
 Relationship: **One-to-Many** (One user → many products).
 
-![Screen2](/Documents/ERDiagram.png)
+[ER Diagram](/Documents/ERDiagram.png)
 
 ## UML Diagrams:
 The system's object-oriented structure is represented using a UML Class Diagram. <br>
