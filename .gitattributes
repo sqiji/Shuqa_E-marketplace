@@ -1,0 +1,7 @@
+# Ignore HTML and CSS for language statistics
+*.html linguist-detectable=false
+*.css linguist-detectable=false
+*.js linguist-detectable=false
+
+# Explicitly tell GitHub to treat Java as the primary focus
+*.java linguist-detectable=true
