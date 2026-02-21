@@ -12,7 +12,7 @@
 - [General Technical Approach](#General-Technical-Approach)
 - [Key Technical Design Decisions](#Key-Technical-Design-Decisions)
 - [Schema ER Diagram](#Schema-ER-Diagram)
-- [Flow Charts/Process Flows](#Flow-Charts/Process-Flows)
+- [Flow Charts/Process Flows](#Flow-Charts//Process-Flows)
 - [Sitemap Diagram](#Sitemap-Diagram)
 - [User Interface Diagrams](#User-Interface-Diagrams)
 - [UML Diagram](#UML-Diagram)
@@ -22,7 +22,7 @@
 - [Functional Testing and Validation](#Functional-Testing-and-Validation)
 - [New Technologies Learned](#New-Technologies-Learned)
 - [Conclusion](#Conclusion)
-- [Presentation and Demo of web-application](#Presentation-and-Demo-of-web/-application)
+- [Presentation and Demo of web-application](#Presentation-and-Demo-of-web-application)
 
 ## What is Shuqa? 
 Shuqa is a local online marketplace connecting buyers and sellers within communities. Users can browse listings without an account, but registration is needed to post and manage items. It's designed for local commerce and community interaction.
