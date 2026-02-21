@@ -1,9 +1,12 @@
-# Force GitHub to identify all files correctly
-*.java linguist-detectable=true
-*.html linguist-detectable=true
-*.css linguist-detectable=true
+# 1. Treat all web-related files as documentation/vendored 
+# This removes them from the language statistics calculation entirely
+*.html linguist-vendored
+*.css linguist-vendored
+*.js linguist-vendored
 
-# Categorize the web templates and styles as 'supporting files'
-# This ensures Java stays the dominant color in the language bar
-src/main/resources/templates/* linguist-documentation=true
-src/main/resources/static/* linguist-documentation=true
+# 2. Ensure Java is explicitly detected and prioritized
+*.java linguist-detectable=true
+
+# 3. If you have specific folders for templates, ignore them specifically
+src/main/resources/templates/** linguist-vendored
+src/main/resources/static/** linguist-vendored
