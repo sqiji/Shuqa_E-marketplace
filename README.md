@@ -11,10 +11,10 @@
 - [Physical Solution Design](#Physical-Solutin-Design)
 - [General Technical Approach](#General-Technical-Approach)
 - [Key Technical Design Decisions](#Key-Technical-Design-Decisions)
-- [Schema ER Diagram](#Schema-ER-Diagram)
-- [Flow Charts/Process Flows](#Flow-Charts-Process-Flows)
 - [Sitemap Diagram](#Sitemap-Diagram)
+- [Flow Charts/Process Flows](#Flow-Charts-Diagram)
 - [User Interface Diagrams](#User-Interface-Diagrams)
+- [Schema ER Diagram](#Schema-ER-Diagram)
 - [UML Diagram](#UML-Diagram)
 - [Non-Functional Requirements (NFRs)](#Non-Functional-Requirements-(NFRs))
 - [Operational Support Design](#Operational-Support-Design)
@@ -81,16 +81,12 @@ The web application is built using **Spring Boot**, **Bootstrap**, and **Thymele
 - **Template Engine**: Thymeleaf for server-side rendering and seamless Spring Boot integration.
 - **Gmail**: for sending the reset password link to user.
 
-## Schema ER Diagram:
-The application uses MongoDB with two main collections:
-- **Users**: Stores user credentials and profile information.
-- **Products**: Stores product listings created by users.
+## Sitemap Diagram:
+The sitemap outlines navigation routes between the homepage, login, registration, products listing, and other key areas.
 
-Relationship: **One-to-Many** (One user → many products).
+[Sitemap](/Documents/SiteMap.png).
 
-![Screen2](/Documents/ERDiagram.png)
-
-## Flow Charts/Process Flows:
+## Flow Charts Diagram:
 The application flow includes:
 - Accessing the homepage
 - Navigating via the navbar
@@ -100,14 +96,18 @@ The application flow includes:
 
 [Flowchart](/Documents/FlowChart.pdf).
 
-## Sitemap Diagram:
-The sitemap outlines navigation routes between the homepage, login, registration, products listing, and other key areas.
-
-[Sitemap](/Documents/SiteMap.png).
-
 ## User Interface Diagrams:
 Wireframes were designed in **Figma** to plan and validate the user experience before implementation. <br>
 [Wireframe](/Documents/Wireframe.pdf).
+
+## Schema ER Diagram:
+The application uses MongoDB with two main collections:
+- **Users**: Stores user credentials and profile information.
+- **Products**: Stores product listings created by users.
+
+Relationship: **One-to-Many** (One user → many products).
+
+![Screen2](/Documents/ERDiagram.png)
 
 ## UML Diagrams:
 The system's object-oriented structure is represented using a UML Class Diagram. <br>
