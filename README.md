@@ -2,6 +2,28 @@
 
 # Shuqa - E-marketplace
 
+## Table of Contents
+- [What is Shuqa?](#-What-is-Shuqa?)
+- [Why Shuqa](#-Why-Shuqa?)
+- [The name of Shuqa?](#-The-name-of-Shuqa?)
+- [Hardwate and Software Technologies](#-Hardwate-and-Software-Technologies)
+- [Logical Solution Design](#-Logical-Solution-Design)
+- [Physical Solution Design](#-Physical-Solutin-Design)
+- [General Technical Approach](#-General-Technical-Approach)
+- [Key Technical Design Decisions](#-Key-Technical-Design-Decisions)
+- [Schema ER Diagram](#-Schema-ER-Diagram)
+- [Flow Charts/Process Flows](#-Flow-Charts/Process-Flows)
+- [Sitemap Diagram](#-Sitemap-Diagram)
+- [User Interface Diagrams](#-User-Interface-Diagrams)
+- [UML Diagram](#-UML-Diagram)
+- [Non-Functional Requirements (NFRs)](#-Non-Functional-Requirements-(NFRs))
+- [Operational Support Design](#-Operational-Support-Design)
+- [Technical Issues and Risk Log](#-Technical-Issues-and-Risk-Log)
+- [Functional Testing and Validation](#-Functional-Testing-and-Validation)
+- [New Technologies Learned](#-New-Technologies-Learned)
+- [Conclusion](#-Conclusion)
+- [Presentation and Demo of web-application](Presentation-and-Demo-of-web/-application)
+
 ## What is Shuqa? 
 Shuqa is a local online marketplace connecting buyers and sellers within communities. Users can browse listings without an account, but registration is needed to post and manage items. It's designed for local commerce and community interaction.
 
